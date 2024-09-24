@@ -885,8 +885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbod: {fileID: 1190281096}
-  speed: 2
-  jumpspeed: 3
+  speed: 1
+  jumpspeed: 300
 --- !u!50 &1190281096
 Rigidbody2D:
   serializedVersion: 4
