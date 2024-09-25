@@ -8,7 +8,8 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public Sprite[] spriteArray;
+    [SerializeField] private SpriteRenderer spriterender;
     [SerializeField] private Rigidbody2D rigidbod;
     [SerializeField] private float speed = 20;
     [SerializeField] private float jumpspeed = 300;
@@ -16,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TilemapCollider2D tilecol;
     private bool grounded = false;
     private float yvelocity = 0;
+    private float xvelocity = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +30,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         yvelocity = rigidbod.velocity.y;
+        xvelocity = rigidbod.velocity.x;
+        print(xvelocity);
         if (Input.GetKey(KeyCode.D))
         {
             rigidbod.AddForce(Vector2.right * speed);
-
+            spriterender.flipX = true;
         }
         else
         {
@@ -40,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             rigidbod.AddForce(Vector2.left * speed);
-
+            spriterender.flipX = false;
         }
         else
         {
@@ -57,12 +63,14 @@ public class PlayerController : MonoBehaviour
         }
 
         if (groundcol.IsTouching(tilecol))
-            {
+        {
             grounded = true;
+            spriterender.sprite = spriteArray[0];
         }
         else
         {
             grounded = false;
+            spriterender.sprite = spriteArray[1];
         }
     }
 }
