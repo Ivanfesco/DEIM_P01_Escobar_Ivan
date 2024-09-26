@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -23,7 +18,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -31,29 +26,62 @@ public class PlayerController : MonoBehaviour
     {
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
-        print(xvelocity);
+
+        // Limit max speed
+        if(rigidbod.velocity.x >= 10)
+        {
+            rigidbod.velocity = new Vector2(10,yvelocity);
+        }
+        // limit min speed
+        if (rigidbod.velocity.x <= -10)
+        {
+            rigidbod.velocity = new Vector2(-10, yvelocity);
+        }
+
+
+
+        
         if (Input.GetKey(KeyCode.D))
         {
             rigidbod.AddForce(Vector2.right * speed);
             spriterender.flipX = true;
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.D))
         {
+            ////////////////////////////////////////////////
+            //rigidbod.AddForce(Vector2.left * speed * 75);
+            ////////////////////////////////////////////////
+            
+
+
+            // paro en seco VV
             rigidbod.velocity = new Vector2(0, yvelocity);
 
         }
+
+
 
         if (Input.GetKey(KeyCode.A))
         {
             rigidbod.AddForce(Vector2.left * speed);
             spriterender.flipX = false;
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.A))
         {
+
+            //////////////////////////////////////////////////
+            //rigidbod.AddForce(Vector2.right * speed * 75);
+            ///////////////////////////////////////////////////
+            
+
+            //paro en seco VV
             rigidbod.velocity = new Vector2(0, yvelocity);
 
         }
-        yvelocity = rigidbod.velocity.y;
+
+
+        //Salto
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (grounded == true)
@@ -61,6 +89,8 @@ public class PlayerController : MonoBehaviour
                 rigidbod.AddForce(Vector2.up * jumpspeed);
             }
         }
+
+        //Check para saber si se está tocando el suelo
 
         if (groundcol.IsTouching(tilecol))
         {
