@@ -866,6 +866,7 @@ GameObject:
   - component: {fileID: 1190281096}
   - component: {fileID: 1190281095}
   - component: {fileID: 1190281100}
+  - component: {fileID: 1190281101}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -894,6 +895,7 @@ MonoBehaviour:
   jumpspeed: 300
   groundcol: {fileID: 1190281100}
   tilecol: {fileID: 189848397}
+  animatorvar: {fileID: 1190281101}
 --- !u!50 &1190281096
 Rigidbody2D:
   serializedVersion: 4
@@ -1068,6 +1070,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0204552, y: 0.14016533}
   m_EdgeRadius: 0
+--- !u!95 &1190281101
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190281094}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 930b546698f306948a407bd5be3bb8bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1553067143
 GameObject:
   m_ObjectHideFlags: 0
