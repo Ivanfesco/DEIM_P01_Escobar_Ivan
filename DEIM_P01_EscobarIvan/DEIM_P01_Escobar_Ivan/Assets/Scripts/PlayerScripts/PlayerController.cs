@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpspeed = 300;
     [SerializeField] private Collider2D groundcol;
     [SerializeField] private TilemapCollider2D tilecol;
+    [SerializeField] private Animator animatorvar;
+
     private bool grounded = false;
     private float yvelocity = 0;
     private float xvelocity = 0;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -44,15 +46,16 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             rigidbod.AddForce(Vector2.right * speed);
-            spriterender.flipX = true;
+            spriterender.flipX = false;
+            animatorvar.SetBool("IsRunning", true);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
             ////////////////////////////////////////////////
             //rigidbod.AddForce(Vector2.left * speed * 75);
             ////////////////////////////////////////////////
-            
 
+            animatorvar.SetBool("IsRunning", false);
 
             // paro en seco VV
             rigidbod.velocity = new Vector2(0, yvelocity);
@@ -64,7 +67,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             rigidbod.AddForce(Vector2.left * speed);
-            spriterender.flipX = false;
+            spriterender.flipX = true;
+            animatorvar.SetBool("IsRunning", true);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
@@ -72,7 +76,8 @@ public class PlayerController : MonoBehaviour
             //////////////////////////////////////////////////
             //rigidbod.AddForce(Vector2.right * speed * 75);
             ///////////////////////////////////////////////////
-            
+
+            animatorvar.SetBool("IsRunning", false);
 
             //paro en seco VV
             rigidbod.velocity = new Vector2(0, yvelocity);
@@ -95,12 +100,14 @@ public class PlayerController : MonoBehaviour
         if (groundcol.IsTouching(tilecol))
         {
             grounded = true;
-            spriterender.sprite = spriteArray[0];
+            animatorvar.SetBool("IsGrounded", true);
+
         }
         else
         {
             grounded = false;
-            spriterender.sprite = spriteArray[1];
+            animatorvar.SetBool("IsGrounded", false);
+
         }
     }
 }
