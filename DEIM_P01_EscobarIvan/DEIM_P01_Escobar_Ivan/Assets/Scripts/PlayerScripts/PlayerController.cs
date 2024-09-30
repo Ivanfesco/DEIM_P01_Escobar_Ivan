@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,10 +6,12 @@ public class PlayerController : MonoBehaviour
     public Sprite[] spriteArray;
     [SerializeField] private SpriteRenderer spriterender;
     [SerializeField] private Rigidbody2D rigidbod;
-    [SerializeField] private float speed = 20;
+    [SerializeField] private float speed = 5;
     [SerializeField] private float jumpspeed = 300;
     [SerializeField] private Collider2D groundcol;
     [SerializeField] private TilemapCollider2D tilecol;
+    [SerializeField] private Animator animatorvar;
+
     private bool grounded = false;
     private float yvelocity = 0;
     private float xvelocity = 0;
@@ -23,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -31,29 +28,65 @@ public class PlayerController : MonoBehaviour
     {
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
-        print(xvelocity);
+
+        // Limit max speed
+        if (rigidbod.velocity.x >= 10)
+        {
+            rigidbod.velocity = new Vector2(10, yvelocity);
+        }
+        // limit min speed
+        if (rigidbod.velocity.x <= -10)
+        {
+            rigidbod.velocity = new Vector2(-10, yvelocity);
+        }
+
+
+
+
         if (Input.GetKey(KeyCode.D))
         {
             rigidbod.AddForce(Vector2.right * speed);
-            spriterender.flipX = true;
+            spriterender.flipX = false;
+            animatorvar.SetBool("IsRunning", true);
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.D))
         {
+            ////////////////////////////////////////////////
+            //rigidbod.AddForce(Vector2.left * speed * 75);
+            ////////////////////////////////////////////////
+
+            animatorvar.SetBool("IsRunning", false);
+
+            // paro en seco VV
             rigidbod.velocity = new Vector2(0, yvelocity);
 
         }
+
+
 
         if (Input.GetKey(KeyCode.A))
         {
             rigidbod.AddForce(Vector2.left * speed);
-            spriterender.flipX = false;
+            spriterender.flipX = true;
+            animatorvar.SetBool("IsRunning", true);
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.A))
         {
+
+            //////////////////////////////////////////////////
+            //rigidbod.AddForce(Vector2.right * speed * 75);
+            ///////////////////////////////////////////////////
+
+            animatorvar.SetBool("IsRunning", false);
+
+            //paro en seco VV
             rigidbod.velocity = new Vector2(0, yvelocity);
 
         }
-        yvelocity = rigidbod.velocity.y;
+
+
+        //Salto
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (grounded == true)
@@ -62,15 +95,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Check para saber si se está tocando el suelo
+
         if (groundcol.IsTouching(tilecol))
         {
             grounded = true;
-            spriterender.sprite = spriteArray[0];
+            animatorvar.SetBool("IsGrounded", true);
+
         }
         else
         {
             grounded = false;
-            spriterender.sprite = spriteArray[1];
+            animatorvar.SetBool("IsGrounded", false);
+
         }
     }
 }
