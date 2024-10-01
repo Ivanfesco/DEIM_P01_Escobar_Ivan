@@ -1,13 +1,15 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    public Sprite[] spriteArray;
+    public bool inputallowed = true;
     [SerializeField] private SpriteRenderer spriterender;
     [SerializeField] private Rigidbody2D rigidbod;
-    [SerializeField] private float speed = 5;
-    [SerializeField] private float jumpspeed = 300;
+    [SerializeField] private int speed = 5;
+    [SerializeField] private int jumpspeed = 300;
     [SerializeField] private Collider2D groundcol;
     [SerializeField] private TilemapCollider2D tilecol;
     [SerializeField] private Animator animatorvar;
@@ -15,12 +17,14 @@ public class PlayerController : MonoBehaviour
     private bool grounded = false;
     private float yvelocity = 0;
     private float xvelocity = 0;
-
+    private int maxvel = 10;
+    private float extragravity = 0.5f;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -29,71 +33,58 @@ public class PlayerController : MonoBehaviour
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
 
-        // Limit max speed
-        if (rigidbod.velocity.x >= 10)
+
+        // limit max velocity
+        rigidbod.velocity = new Vector2 (Mathf.Clamp(xvelocity, -maxvel, maxvel), yvelocity);
+
+        ///////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////INPUT ZONE///////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+        if (inputallowed)
         {
-            rigidbod.velocity = new Vector2(10, yvelocity);
-        }
-        // limit min speed
-        if (rigidbod.velocity.x <= -10)
-        {
-            rigidbod.velocity = new Vector2(-10, yvelocity);
-        }
-
-
-
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            rigidbod.AddForce(Vector2.right * speed);
-            spriterender.flipX = false;
-            animatorvar.SetBool("IsRunning", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-            ////////////////////////////////////////////////
-            //rigidbod.AddForce(Vector2.left * speed * 75);
-            ////////////////////////////////////////////////
-
-            animatorvar.SetBool("IsRunning", false);
-
-            // paro en seco VV
-            rigidbod.velocity = new Vector2(0, yvelocity);
-
-        }
-
-
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            rigidbod.AddForce(Vector2.left * speed);
-            spriterender.flipX = true;
-            animatorvar.SetBool("IsRunning", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-
-            //////////////////////////////////////////////////
-            //rigidbod.AddForce(Vector2.right * speed * 75);
-            ///////////////////////////////////////////////////
-
-            animatorvar.SetBool("IsRunning", false);
-
-            //paro en seco VV
-            rigidbod.velocity = new Vector2(0, yvelocity);
-
-        }
-
-
-        //Salto
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (grounded == true)
+            if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.up * jumpspeed);
+                rigidbod.AddForce(Vector2.right * speed);
+                spriterender.flipX = false;
+                animatorvar.SetBool("IsRunning", true);
             }
+            else if (Input.GetKeyUp(KeyCode.D))
+            {
+
+                // paro en seco VV
+                rigidbod.velocity = new Vector2(0, yvelocity);
+
+            }
+
+
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                rigidbod.AddForce(Vector2.left * speed);
+                spriterender.flipX = true;
+                animatorvar.SetBool("IsRunning", true);
+            }
+            else if (Input.GetKeyUp(KeyCode.A))
+            {
+                //paro en seco VV
+                rigidbod.velocity = new Vector2(0, yvelocity);
+
+            }
+
+
+            //Salto
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (grounded == true)
+                {
+                    rigidbod.AddForce(Vector2.up * jumpspeed);
+                }
+            }
+            
         }
+        ////////////////////////////////////////////////////////////////////
+
 
         //Check para saber si se está tocando el suelo
 
@@ -109,5 +100,28 @@ public class PlayerController : MonoBehaviour
             animatorvar.SetBool("IsGrounded", false);
 
         }
+
+
+        animatorvar.SetBool("IsRunning", rigidbod.velocity.x != 0);
+
+
+
+        //Extra gravity
+        if (yvelocity <0)
+        {
+
+            rigidbod.AddForce(Vector2.down * extragravity);
+
+        }
+
+
+
+    }
+
+    public void restartscene()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 }
