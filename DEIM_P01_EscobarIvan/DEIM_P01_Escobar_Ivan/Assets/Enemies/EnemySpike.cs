@@ -16,6 +16,7 @@ public class EnemySpike : MonoBehaviour
             healthmanvar = collision.gameObject.GetComponent<HealthManager>();
             healthmanvar.health = healthmanvar.health - damage;
             print(healthmanvar.health);
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(impulsevec.x * 300, impulsevec.y * 200));
 
         }

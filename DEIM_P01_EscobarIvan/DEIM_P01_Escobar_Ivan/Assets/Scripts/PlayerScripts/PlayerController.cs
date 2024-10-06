@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed);
+                rigidbod.AddForce(Vector2.right * speed / 3);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             {
 
                 // paro en seco VV
-                rigidbod.velocity = new Vector2(0, yvelocity);
+                rigidbod.velocity = new Vector2(2, yvelocity);
 
             }
 
@@ -60,14 +60,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed);
+                rigidbod.AddForce(Vector2.left * speed / 3);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
             else if (Input.GetKeyUp(KeyCode.A))
             {
                 //paro en seco VV
-                rigidbod.velocity = new Vector2(0, yvelocity);
+                rigidbod.velocity = new Vector2(-2, yvelocity);
 
             }
 
@@ -86,25 +86,13 @@ public class PlayerController : MonoBehaviour
         ////////////////////////////////////////////////////////////////////
 
 
-        //Check para saber si se está tocando el suelo
-
-        if (groundcol.IsTouching(tilecol))
-        {
-            grounded = true;
-            animatorvar.SetBool("IsGrounded", true);
-
-        }
-        else
-        {
-            grounded = false;
-            animatorvar.SetBool("IsGrounded", false);
-
-        }
 
 
-        animatorvar.SetBool("IsRunning", rigidbod.velocity.x != 0);
 
 
+        animatorvar.SetBool("IsRunning", Mathf.Abs(0 - rigidbod.velocity.x) >= 0.01);
+
+        animatorvar.SetBool("IsJumping", yvelocity>=0.01);
 
         //Extra gravity
         if (yvelocity <0)
@@ -117,6 +105,25 @@ public class PlayerController : MonoBehaviour
 
 
     }
+           //Check para saber si se está tocando el suelo
+    private void OnTriggerEnter2D(Collider2D collision)
+        {
+
+        grounded = true;
+        animatorvar.SetBool("IsGrounded", grounded);
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        grounded = false;
+        animatorvar.SetBool("IsGrounded", grounded);
+    }
+
+    /// 
+    /// 
+    /// 
 
     public void restartscene()
     {
