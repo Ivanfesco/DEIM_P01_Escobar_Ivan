@@ -10,9 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidbod;
     [SerializeField] private int speed = 5;
     [SerializeField] private int jumpspeed = 300;
+    [SerializeField] private int recoilspeed = 100;
     [SerializeField] private Collider2D groundcol;
     [SerializeField] private TilemapCollider2D tilecol;
     [SerializeField] private Animator animatorvar;
+    [SerializeField] private GameObject GameObjectToSpawn;
+
 
     private bool grounded = false;
     private float yvelocity = 0;
@@ -79,6 +82,12 @@ public class PlayerController : MonoBehaviour
                 if (grounded == true)
                 {
                     rigidbod.AddForce(Vector2.up * jumpspeed);
+                }
+                else
+                {
+
+                    rigidbod.AddForce(Vector2.up * recoilspeed);
+                    Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y-1), Quaternion.identity);
                 }
             }
             
