@@ -16,13 +16,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animatorvar;
     [SerializeField] private GameObject GameObjectToSpawn;
 
-
+    private int colidingwith = 0;
     private bool grounded = false;
     private float yvelocity = 0;
     private float xvelocity = 0;
     private int maxvel = 10;
     private float extragravity = 0.5f;
-    
+    private int bulletAmount = 10;
+
 
     // Start is called before the first frame update
     void Start()
@@ -85,9 +86,13 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    if (bulletAmount >= 1)
+                    {
+                        bulletAmount = bulletAmount - 1;
+                        rigidbod.AddForce(Vector2.up * recoilspeed);
+                        Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
 
-                    rigidbod.AddForce(Vector2.up * recoilspeed);
-                    Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y-1), Quaternion.identity);
+                    }
                 }
             }
             
@@ -110,24 +115,57 @@ public class PlayerController : MonoBehaviour
             rigidbod.AddForce(Vector2.down * extragravity);
 
         }
-
-
-
-    }
-           //Check para saber si se está tocando el suelo
-    private void OnTriggerEnter2D(Collider2D collision)
+        
+        if (colidingwith <= 0)
         {
+            colidingwith = 0;
+        }
 
-        grounded = true;
+
         animatorvar.SetBool("IsGrounded", grounded);
+        if (grounded == true)
+        {
+            bulletAmount = 10;
+        }
 
     }
+    //Check para saber si se está tocando el suelo
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.isTrigger == false)
+        {
+            colidingwith = colidingwith + 1;
+            if (colidingwith >= 1)
+            {
+                grounded = true;
+            }
+            else
+            {
+                grounded = false;
+
+            }
+        }
+        
+    }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.isTrigger == false)
+        {
+            colidingwith = colidingwith - 1;
+            if (colidingwith >= 1)
+            {
+                grounded = true;
 
-        grounded = false;
-        animatorvar.SetBool("IsGrounded", grounded);
+            }
+            else
+            {
+
+                grounded = false;
+
+            }
+        }
     }
 
     /// 
