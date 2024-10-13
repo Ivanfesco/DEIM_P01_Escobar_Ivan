@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemySpike : MonoBehaviour
+public class SpikeScript : MonoBehaviour
 {
-    [SerializeField]private int damage = 1;
+    
+    [SerializeField] private int damage = 1;
     private HealthManager playerhealthmanvar;
     private Vector2 impulsevec;
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,5 +21,4 @@ public class EnemySpike : MonoBehaviour
         }
 
     }
-
 }

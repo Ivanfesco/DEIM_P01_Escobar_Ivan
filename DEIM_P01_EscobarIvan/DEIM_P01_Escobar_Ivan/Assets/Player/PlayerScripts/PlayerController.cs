@@ -10,9 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidbod;
     [SerializeField] private int speed = 5;
     [SerializeField] private int jumpspeed = 300;
-    [SerializeField] private int recoilspeed = 100;
+    [SerializeField] private int recoilspeed = 200;
     [SerializeField] private Collider2D groundcol;
-    [SerializeField] private TilemapCollider2D tilecol;
     [SerializeField] private Animator animatorvar;
     [SerializeField] private GameObject GameObjectToSpawn;
 
@@ -36,7 +35,10 @@ public class PlayerController : MonoBehaviour
     {
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
-
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            restartscene();
+        }
 
         // limit max velocity
         rigidbod.velocity = new Vector2 (Mathf.Clamp(xvelocity, -maxvel, maxvel), yvelocity);
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed / 3);
+                rigidbod.AddForce(Vector2.right * speed * Time.deltaTime * 100);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed / 3);
+                rigidbod.AddForce(Vector2.left * speed * Time.deltaTime * 100);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -89,7 +91,12 @@ public class PlayerController : MonoBehaviour
                     if (bulletAmount >= 1)
                     {
                         bulletAmount = bulletAmount - 1;
-                        rigidbod.AddForce(Vector2.up * recoilspeed);
+                        //halve vertical velocity, add impulse up 
+                        rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y/2);
+                       
+                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * bulletAmount, ForceMode2D.Impulse);
+                        
+                        //spawn bullet
                         Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
 
                     }

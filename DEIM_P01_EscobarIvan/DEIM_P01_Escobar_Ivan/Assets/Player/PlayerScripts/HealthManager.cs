@@ -11,9 +11,10 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private GameObject hearticon2;
     [SerializeField] private GameObject hearticon3;
     [SerializeField] private GameObject gameovercanvas;
-
-
-
+    float timer=0;
+    float timeElapsed=0;
+    bool damageable = true;
+    float immunitytime = 1;
     public int health = 3;
     void Start()
     {
@@ -60,6 +61,27 @@ public class HealthManager : MonoBehaviour
 
         }
 
+        if (timer <= immunitytime)
+        {
+            timer = Time.time - timeElapsed;
+
+        }
+        if (timer >= immunitytime)
+        {
+            damageable = true;
+        }
+
     }
 
+    public void PlayerDamage(int damage)
+
+    {
+        if (damageable)
+        {
+            damageable = false;
+            health = health - damage;
+            timer = 0;
+            timeElapsed = Time.time;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,12 +12,7 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private BoxCollider2D boxcol;
     [SerializeField] private Rigidbody2D rigidbodref;
     private int maxvel = 10;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private DeathManager deathman;
 
     // Update is called once per frame
     void Update()
@@ -35,12 +31,9 @@ public class BulletScript : MonoBehaviour
         }
         else if (collision.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
+            deathman = collision.gameObject.GetComponent<DeathManager>();
+            deathman.damage(); 
             Destroy(gameObject);
-        }
-        else if(collision.gameObject == gameObject)
-        {
-            print("bullet collision");
         }
 
         else
