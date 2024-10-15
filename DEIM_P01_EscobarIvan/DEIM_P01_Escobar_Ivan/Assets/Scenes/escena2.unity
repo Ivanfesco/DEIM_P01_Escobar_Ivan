@@ -799,22 +799,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 175685070275914539, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
-      propertyPath: orthographic size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2512970068090196567, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2512970068090196567, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 2512970068090196567, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
     - target: {fileID: 2798256280726437378, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
       propertyPath: m_Name
       value: Player
@@ -859,13 +843,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7778493382301228496, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 494690744020591995, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc14fc29526fd9f4c8c6148420254011, type: 3}
@@ -999,8 +978,15 @@ MonoBehaviour:
   levelTile: {fileID: 2913818910639352559, guid: 7fec027a993ce414395bde9042f1de33, type: 3}
   tilesToUse:
   - {fileID: 3118609818791229045, guid: 1bc8aadde0184004bae6cf3691cd31c4, type: 3}
-  - {fileID: 7193738461303546869, guid: e6c3b4283cab25b4b992e37aae129611, type: 3}
-  - {fileID: 2913818910639352559, guid: 7fec027a993ce414395bde9042f1de33, type: 3}
+  - {fileID: 3118609818791229045, guid: dceca859f575e284eb0254eb289208a8, type: 3}
+  - {fileID: 3118609818791229045, guid: 4094fb6c545bb9c4491d3acad3346884, type: 3}
+  - {fileID: 3118609818791229045, guid: 344baa35a7dcb3340b350f2556b2226f, type: 3}
+  - {fileID: 3118609818791229045, guid: afe1989083cd7bb43bf2263fd25b3326, type: 3}
+  - {fileID: 3118609818791229045, guid: 0e1c1a222a33547459c0472baeae83bf, type: 3}
+  tilesEnd:
+  - {fileID: 3118609818791229045, guid: b1d759b51eb6a6243b392cb8452db546, type: 3}
+  tilesStart:
+  - {fileID: 3118609818791229045, guid: 5c419e86fff96c94aa1572556f1e1f74, type: 3}
   generatedtiles: []
 --- !u!4 &633801588
 Transform:

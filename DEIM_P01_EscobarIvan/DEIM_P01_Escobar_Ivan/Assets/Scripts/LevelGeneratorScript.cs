@@ -8,10 +8,12 @@ public class LevelGeneratorScript : MonoBehaviour
 {
     [SerializeField] private GameObject levelTile;
     [SerializeField] private GameObject[] tilesToUse;
+    [SerializeField] private GameObject[] tilesEnd;
+    [SerializeField] private GameObject[] tilesStart;
     [SerializeField] private List<GameObject> generatedtiles;
     int numberOfTilesToGenerate = 20;
     int tileHeight = -15;
-    int tileNumber = 0;
+    int tileNumber = 1;
     int tileIndex;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,7 @@ public class LevelGeneratorScript : MonoBehaviour
                 generatedtiles.Add(tilesToUse[i]);
             }
         }
+        Instantiate(tilesStart[UnityEngine.Random.Range(0, 1)], new Vector2(0, 0), Quaternion.identity, transform);
 
         while (tileNumber < numberOfTilesToGenerate)
         {
@@ -34,7 +37,8 @@ public class LevelGeneratorScript : MonoBehaviour
             generatedtiles.RemoveAt(tileIndex);
             tileNumber++;
         }
-        
+        Instantiate(tilesEnd[UnityEngine.Random.Range(0, 1)], new Vector2(0, tileNumber*tileHeight), Quaternion.identity, transform);
+
     }
     // Update is called once per frame
     void Update()

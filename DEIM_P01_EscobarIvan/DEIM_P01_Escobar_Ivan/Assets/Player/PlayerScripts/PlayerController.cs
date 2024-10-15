@@ -8,21 +8,23 @@ public class PlayerController : MonoBehaviour
     public bool inputallowed = true;
     [SerializeField] private SpriteRenderer spriterender;
     [SerializeField] private Rigidbody2D rigidbod;
-    [SerializeField] private int speed = 5;
-    [SerializeField] private int jumpspeed = 300;
-    [SerializeField] private int recoilspeed = 200;
     [SerializeField] private Collider2D groundcol;
     [SerializeField] private Animator animatorvar;
     [SerializeField] private GameObject GameObjectToSpawn;
-
+    [SerializeField] private InventoryScript inventorymanagerref;
+    [SerializeField] private float maxjumptime=0.9f;
+    [SerializeField] private int speed = 5;
+    [SerializeField] private int jumpspeed;
+    [SerializeField] private int recoilspeed = 200;
+    private float jumpTime=0;
     private int colidingwith = 0;
     private bool grounded = false;
     private float yvelocity = 0;
     private float xvelocity = 0;
     private int maxvel = 10;
     private float extragravity = 0.5f;
-    private int bulletAmount = 10;
-
+    private bool jumping;
+    private bool impulseapplied;
 
     // Start is called before the first frame update
     void Start()
@@ -84,23 +86,44 @@ public class PlayerController : MonoBehaviour
             {
                 if (grounded == true)
                 {
-                    rigidbod.AddForce(Vector2.up * jumpspeed);
+                    print("inicio de salto");
+                    impulseapplied = false;
+                    rigidbod.velocity=(Vector2.up * jumpspeed);
+                    jumping=true;
+                    jumpTime=0;
                 }
                 else
                 {
-                    if (bulletAmount >= 1)
+                    if (inventorymanagerref.bulletAmount >= 1)
                     {
-                        bulletAmount = bulletAmount - 1;
+                        inventorymanagerref.bulletAmount = inventorymanagerref.bulletAmount - 1;
                         //halve vertical velocity, add impulse up 
-                        rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y/2);
-                       
-                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * bulletAmount, ForceMode2D.Impulse);
-                        
+                        rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
+
+                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * inventorymanagerref.bulletAmount, ForceMode2D.Impulse);
+
                         //spawn bullet
                         Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
 
                     }
                 }
+            }
+            if (Input.GetKeyUp(KeyCode.Space) || (jumpTime >= maxjumptime))
+            {
+                if(rigidbod.velocity.y >= 2)
+                {
+                    if (!impulseapplied)
+                    {
+                        impulseapplied = true;
+                        rigidbod.velocity = new Vector2(rigidbod.velocity.x, 3);
+                    }
+                }
+                
+            }
+
+            if (jumping)
+            {
+                jumpTime += Time.deltaTime;
             }
             
         }
@@ -127,12 +150,12 @@ public class PlayerController : MonoBehaviour
         {
             colidingwith = 0;
         }
-
+        print(colidingwith);
 
         animatorvar.SetBool("IsGrounded", grounded);
         if (grounded == true)
         {
-            bulletAmount = 10;
+            inventorymanagerref.bulletAmount = 10;
         }
 
     }
@@ -145,11 +168,13 @@ public class PlayerController : MonoBehaviour
             if (colidingwith >= 1)
             {
                 grounded = true;
+                jumping = false;
+                jumpTime = 0;
             }
             else
             {
                 grounded = false;
-
+                jumping =true;
             }
         }
         
@@ -164,11 +189,13 @@ public class PlayerController : MonoBehaviour
             if (colidingwith >= 1)
             {
                 grounded = true;
+                jumping = false;
+                jumpTime = 0;
 
             }
             else
             {
-
+                jumping = true;
                 grounded = false;
 
             }

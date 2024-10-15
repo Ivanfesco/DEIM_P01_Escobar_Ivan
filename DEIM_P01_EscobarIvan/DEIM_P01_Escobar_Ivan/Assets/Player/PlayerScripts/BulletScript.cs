@@ -11,9 +11,17 @@ public class BulletScript : MonoBehaviour
 
     [SerializeField] private BoxCollider2D boxcol;
     [SerializeField] private Rigidbody2D rigidbodref;
+    [SerializeField] private SpriteRenderer spriterenderer;
     private int maxvel = 10;
     private DeathManager deathman;
+    private void Start()
+    {
+        if (Random.Range(0, 2) == 1)
+        {
+            spriterenderer.flipX = true;
+        }
 
+    }
     // Update is called once per frame
     void Update()
     {
