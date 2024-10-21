@@ -14,11 +14,16 @@ public class DeathManager : MonoBehaviour
     {
 
         health--;
+
+    }
+
+    private void Update()
+    {
         if (health < 1)
         {
             while (moneyworth > 0)
             {
-                
+
                 Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-45, 45))));
                 moneyworth--;
 

@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
                 {
                     print("inicio de salto");
                     impulseapplied = false;
-                    rigidbod.velocity=(Vector2.up * jumpspeed);
+                    rigidbod.velocity=(new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
                     jumping=true;
                     jumpTime=0;
                 }
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
                         //halve vertical velocity, add impulse up 
                         rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
 
-                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * inventorymanagerref.bulletAmount, ForceMode2D.Impulse);
+                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * inventorymanagerref.bulletAmount * 50);
 
                         //spawn bullet
                         Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));

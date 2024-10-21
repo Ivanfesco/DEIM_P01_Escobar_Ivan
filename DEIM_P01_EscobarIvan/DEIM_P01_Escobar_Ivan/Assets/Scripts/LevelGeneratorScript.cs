@@ -15,6 +15,7 @@ public class LevelGeneratorScript : MonoBehaviour
     int tileHeight = -15;
     int tileNumber = 1;
     int tileIndex;
+    int previousExit = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +29,27 @@ public class LevelGeneratorScript : MonoBehaviour
                 generatedtiles.Add(tilesToUse[i]);
             }
         }
-        Instantiate(tilesStart[UnityEngine.Random.Range(0, 1)], new Vector2(0, 0), Quaternion.identity, transform);
+
 
         while (tileNumber < numberOfTilesToGenerate)
         {
-            tileIndex = UnityEngine.Random.Range(0, generatedtiles.Count);
-            Instantiate(generatedtiles[tileIndex], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
-            generatedtiles.RemoveAt(tileIndex);
-            tileNumber++;
+            if (tileNumber < 4)
+            {
+                Instantiate(tilesStart[UnityEngine.Random.Range(0, 1)], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
+                tileNumber++;
+            }
+            else
+            {
+                tileIndex = UnityEngine.Random.Range(0, generatedtiles.Count);
+                if (generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType != previousExit)
+                {
+                    Instantiate(generatedtiles[tileIndex], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
+                    generatedtiles.RemoveAt(tileIndex);
+                    tileNumber++;
+                    previousExit = generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType;
+                }
+                
+            }
         }
         Instantiate(tilesEnd[UnityEngine.Random.Range(0, 1)], new Vector2(0, tileNumber*tileHeight), Quaternion.identity, transform);
 

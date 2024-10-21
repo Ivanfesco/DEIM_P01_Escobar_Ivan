@@ -3283,6 +3283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7894017709931195990}
   - component: {fileID: 8970963134608832916}
+  - component: {fileID: 7440080068671477253}
   m_Layer: 0
   m_Name: Grid 8
   m_TagString: Untagged
@@ -3318,3 +3319,16 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &7440080068671477253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118609818791229045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092c4665bdc48294d82c25d2700f542a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitType: 1
