@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (grounded == true)
                 {
-                    print("inicio de salto");
+
                     impulseapplied = false;
                     rigidbod.velocity=(new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
                     jumping=true;
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             colidingwith = 0;
         }
-        print(colidingwith);
+
 
         animatorvar.SetBool("IsGrounded", grounded);
         if (grounded == true)
@@ -167,9 +167,19 @@ public class PlayerController : MonoBehaviour
             colidingwith = colidingwith + 1;
             if (colidingwith >= 1)
             {
+                if (collision.CompareTag("Enemy"))
+                {
+                    if (collision.GetComponent<DeathManager>().stompable)
+                    {
+                        rigidbod.velocity = new Vector2(rigidbod.velocity.x, 0);
+                        rigidbod.AddForce(new Vector2(0, 250));
+                        collision.GetComponent<DeathManager>().damage();
+                    }
+                } 
                 grounded = true;
                 jumping = false;
                 jumpTime = 0;
+                
             }
             else
             {

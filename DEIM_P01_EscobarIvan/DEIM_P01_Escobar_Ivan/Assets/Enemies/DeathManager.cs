@@ -8,7 +8,7 @@ public class DeathManager : MonoBehaviour
     [SerializeField] public int health = 1;
     [SerializeField] public GameObject GameObjectToSpawn;
     [SerializeField] public int moneyworth = 1;
-
+    [SerializeField] public bool stompable = true;
 
     public void damage()
     {
