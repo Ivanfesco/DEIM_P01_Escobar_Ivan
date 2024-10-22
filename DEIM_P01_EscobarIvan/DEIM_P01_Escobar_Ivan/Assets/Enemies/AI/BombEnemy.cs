@@ -5,7 +5,7 @@ using Pathfinding;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-public class FlyingEnemyAI : MonoBehaviour
+public class BombEnemy : MonoBehaviour
 {
     public enum EnemyState { Idle, Chase, Move, Attack, Dead };
     public EnemyState State;

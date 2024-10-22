@@ -51,6 +51,12 @@ public class boxscript : MonoBehaviour
             spawncoinsondeath();
             Destroy(gameObject);
         }
+            if (collision.name.StartsWith("BulletPrefab"))
+            {
+                Destroy(collision.gameObject);
+                spawncoinsondeath();
+                Destroy(gameObject);
+            }
 
     }
    

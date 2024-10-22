@@ -1,3 +1,4 @@
+using Pathfinding.Util;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class HelmetScript : MonoBehaviour
     [SerializeField] private DeathManager DeathManager;
     private float destroy_timer;
     private float timer_start;
+
     private void Start()
     {
         DeathManager.stompable = false;
@@ -52,5 +54,7 @@ public class HelmetScript : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+
     }
 }
