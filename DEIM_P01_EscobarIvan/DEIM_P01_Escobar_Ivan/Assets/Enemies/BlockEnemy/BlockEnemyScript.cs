@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlockEnemyScript : MonoBehaviour
@@ -9,7 +10,7 @@ public class BlockEnemyScript : MonoBehaviour
     [SerializeField] GameObject playerRef;
     private Transform starttrf;
 
-    public enum EnemyState { Idle, Attack};
+    public enum EnemyState { Idle, Attack, Returning};
     public EnemyState State;
 
     // Update is called once per frame
@@ -21,18 +22,18 @@ public class BlockEnemyScript : MonoBehaviour
     }
     void Update()
     {
-        if(Mathf.Abs(Mathf.Abs(playerRef.transform.position.x) - Mathf.Abs(gameObject.transform.position.x)) < 2 )
-        {
-            State = EnemyState.Attack;
-        }
+
 
         switch (State)
         {
 
             case EnemyState.Idle:
 
-                
-                
+
+                if (Mathf.Abs(Mathf.Abs(playerRef.transform.position.x) - Mathf.Abs(gameObject.transform.position.x)) < 2)
+                {
+                    State = EnemyState.Attack;
+                }
 
                 break;
 
@@ -42,10 +43,26 @@ public class BlockEnemyScript : MonoBehaviour
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -4));
 
                 BoxCollider2D boxcol = gameObject.GetComponent<BoxCollider2D>();
-                 void OnTriggerEnter2D(Collider2D collision)
-                 {
-                    State = EnemyState.Idle;
-                 }
+
+                RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, Vector2.down * 0.65f, 0.5f);
+                Debug.DrawRay(gameObject.transform.position, Vector2.down * 0.65f, Color.green, 1);
+                if (!hit.collider.CompareTag("Enemy"))
+                {
+
+                    State = EnemyState.Returning;
+
+                }
+                    break;
+
+                case EnemyState.Returning:
+                if (gameObject.GetComponent<Rigidbody2D>().velocity.y < 2)
+                {
+                    if (gameObject.transform.position.y < starttrf.transform.position.y)
+                    {
+                        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1));
+                    }
+                }
+
 
                 break;
         }
