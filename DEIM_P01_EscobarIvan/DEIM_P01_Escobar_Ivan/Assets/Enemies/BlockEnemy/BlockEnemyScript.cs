@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BlockEnemyScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] GameObject playerRef;
-    private Transform starttrf;
+    Rigidbody2D rb;
+    private Vector3 startpos;
 
     public enum EnemyState { Idle, Attack, Returning};
     public EnemyState State;
-
+    bool attacking;
     // Update is called once per frame
 
     private void Start()
     {
-        starttrf = gameObject.transform;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        startpos = gameObject.transform.position;
         State=EnemyState.Idle;
     }
     void Update()
@@ -30,41 +33,56 @@ public class BlockEnemyScript : MonoBehaviour
             case EnemyState.Idle:
 
 
-                if (Mathf.Abs(Mathf.Abs(playerRef.transform.position.x) - Mathf.Abs(gameObject.transform.position.x)) < 2)
+                if (playerRef.transform.position.x < gameObject.transform.position.x + 2 && playerRef.transform.position.x > gameObject.transform.position.x - 2)
                 {
-                    State = EnemyState.Attack;
+                    if (playerRef.transform.position.y < gameObject.transform.position.y)
+                    {
+                        State = EnemyState.Attack;
+                    }
                 }
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
                 break;
 
 
             case EnemyState.Attack:
+                gameObject.GetComponent<Animator>().SetBool("Attacking", true);
+                rb.AddForce(new Vector2(0, -4));
 
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -4));
-
-                BoxCollider2D boxcol = gameObject.GetComponent<BoxCollider2D>();
-
-                RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, Vector2.down * 0.65f, 0.5f);
-                Debug.DrawRay(gameObject.transform.position, Vector2.down * 0.65f, Color.green, 1);
-                if (!hit.collider.CompareTag("Enemy"))
-                {
-
-                    State = EnemyState.Returning;
-
-                }
+                attacking = true;
+                rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                     break;
 
-                case EnemyState.Returning:
-                if (gameObject.GetComponent<Rigidbody2D>().velocity.y < 2)
+            case EnemyState.Returning:
+                gameObject.GetComponent<Animator>().SetBool("Attacking", false);
+                if (gameObject.transform.position.y < startpos.y)
                 {
-                    if (gameObject.transform.position.y < starttrf.transform.position.y)
-                    {
-                        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1));
-                    }
+                    rb.AddForce(new Vector2(0, 0.1f));
                 }
+                else
+                {
+                    rb.velocity=Vector3.zero;
+                    State = EnemyState.Idle;
+                }
+                
 
 
-                break;
+             break;
+
+            
+
+        }
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (attacking)
+        {
+                print(collision.collider.name);
+                State = EnemyState.Returning;
+                attacking = false;
+            
         }
     }
 }
