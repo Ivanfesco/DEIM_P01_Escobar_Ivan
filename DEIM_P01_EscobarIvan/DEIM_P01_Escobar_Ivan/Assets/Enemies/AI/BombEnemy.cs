@@ -88,7 +88,6 @@ public class BombEnemy : MonoBehaviour
                 }
 
             }
-            print(InFollowRange());
         }
 
         void GoDie()

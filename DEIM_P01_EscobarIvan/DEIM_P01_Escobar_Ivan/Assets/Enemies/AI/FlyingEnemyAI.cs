@@ -88,7 +88,7 @@ public class FlyingEnemyAI : MonoBehaviour
                 }
 
             }
-            print(InFollowRange());
+
         }
 
         void GoDie()
