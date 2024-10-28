@@ -31,11 +31,23 @@ public class PlayerController : MonoBehaviour
     public int damage = 1;
     public bool hasBulletPenetration;
     public int amountOfBulletsToSpawn = 1;
+    private UnityEngine.SceneManagement.Scene scene;
+
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        scene = SceneManager.GetActiveScene();
+        if (scene.name.StartsWith("Desert") || scene.name.StartsWith("Forest") || scene.name.StartsWith("Tundra"))
+        {
+            
+            gameObject.transform.position = new Vector3(0, -20, 0);
+        }
+    }
+
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -58,7 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 100);
+                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 25);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -74,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 100);
+                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 25);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -133,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
             if (jumping)
             {
-                jumpTime += Time.deltaTime;
+                jumpTime += Time.fixedDeltaTime;
             }
             
         }
