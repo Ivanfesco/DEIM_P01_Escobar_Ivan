@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5646367814828121243}
   - component: {fileID: 3943546986205431791}
   - component: {fileID: 211808840235817029}
+  - component: {fileID: 8814669221012623266}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Enemy
@@ -105,10 +106,12 @@ MonoBehaviour:
   State: 1
   deathman: {fileID: 1399814443997739092}
   playerTrf: {fileID: 0}
+  player: {fileID: 0}
   followRange: 8
   layermask:
     serializedVersion: 2
     m_Bits: 128
+  damage: 0
 --- !u!114 &1399814443997739092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +128,8 @@ MonoBehaviour:
   GameObjectToSpawn: {fileID: 8673981107608724684, guid: e7338f4f53979b44aa4ab11982ccd501, type: 3}
   moneyworth: 1
   stompable: 1
+  pc: {fileID: 0}
+  ishelmet: 0
 --- !u!114 &7277283626047382380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +262,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &8814669221012623266
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4900400256967534152}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a4150d03cbab1648bfeee8bbca90cdd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

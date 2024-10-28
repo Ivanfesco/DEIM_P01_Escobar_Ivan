@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed * Time.deltaTime * 100);
+                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 100);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed * Time.deltaTime * 100);
+                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 100);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
                         //halve vertical velocity, add impulse up 
                         rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
 
-                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * inventorymanagerref.bulletAmount * 50);
+                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.fixedDeltaTime * inventorymanagerref.bulletAmount * 10);
 
                         //spawn bullet
                         for (int i = 0; i < amountOfBulletsToSpawn; i++)

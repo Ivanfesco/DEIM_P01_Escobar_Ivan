@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8130175539691223037}
   m_Layer: 0
   m_Name: DestructibleBlock
-  m_TagString: Enemy
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

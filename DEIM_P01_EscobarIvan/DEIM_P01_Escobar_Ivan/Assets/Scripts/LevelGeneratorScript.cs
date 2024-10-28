@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using Pathfinding;
 
 public class LevelGeneratorScript : MonoBehaviour
 {
@@ -36,13 +37,7 @@ public class LevelGeneratorScript : MonoBehaviour
         }
 
 
-        
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (tileNumber < numberOfTilesToGenerate)
+        while (tileNumber < numberOfTilesToGenerate)
         {
             if (tileNumber < 4)
             {
@@ -65,7 +60,7 @@ public class LevelGeneratorScript : MonoBehaviour
                         generatetilesfunc();
                     }
                 }
-                else 
+                else
                 {
                     generatetilesfunc();
                 }
@@ -73,6 +68,14 @@ public class LevelGeneratorScript : MonoBehaviour
 
             }
         }
+
+        generationended();
+
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
 
         if (tileNumber == numberOfTilesToGenerate)
         {
@@ -113,5 +116,17 @@ public class LevelGeneratorScript : MonoBehaviour
             generatedtiles.RemoveAt(tileIndex);
             tileNumber++;
         }
+    }
+
+    void generationended()
+    {
+        var gg = AstarPath.active.data.gridGraph;
+        
+        gg.RelocateNodes(center: new Vector3(0, (numberOfTilesToGenerate * tileHeight) / 2, 0), rotation: Quaternion.identity, nodeSize: 0.25f);
+        gg.is2D = true;
+        gg.SetDimensions(112, tileHeight * numberOfTilesToGenerate * 4, 0.25f);
+
+        AstarPath.active.Scan();
+
     }
 }

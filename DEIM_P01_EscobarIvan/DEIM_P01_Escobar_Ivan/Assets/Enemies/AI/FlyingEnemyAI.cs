@@ -15,6 +15,11 @@ public class FlyingEnemyAI : MonoBehaviour
     [SerializeField] private float followRange;
     [SerializeField] private LayerMask layermask;
     private AIPath aiAgent;
+    private Vector2 impulsevec;
+    [SerializeField] private int damage = 1;
+    private HealthManager playerhealthmanvar;
+
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -108,7 +113,7 @@ public class FlyingEnemyAI : MonoBehaviour
         {
 
         }
-
+        
         bool InAttackRange()
         {
             return false;
@@ -119,6 +124,7 @@ public class FlyingEnemyAI : MonoBehaviour
             bool res = false;
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTrf.position - transform.position, followRange, layermask);
+            Debug.DrawRay(transform.position, playerTrf.position - transform.position);
             if (hit.collider != null && hit.collider.name.StartsWith("Player"))
             {
                 res = true;
@@ -126,6 +132,23 @@ public class FlyingEnemyAI : MonoBehaviour
 
 
             return res;
+
         }
+       
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            impulsevec = collision.gameObject.transform.position - transform.position;
+            playerhealthmanvar = collision.gameObject.GetComponent<HealthManager>();
+            playerhealthmanvar.PlayerDamage(damage);
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(impulsevec.x * 300, impulsevec.y * 200));
+
+        }
+
+    }
+
 }

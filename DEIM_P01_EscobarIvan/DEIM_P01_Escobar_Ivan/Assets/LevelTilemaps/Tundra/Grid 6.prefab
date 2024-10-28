@@ -3316,7 +3316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092c4665bdc48294d82c25d2700f542a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitType: 2
+  exitType: 1
 --- !u!1001 &2798770567893985775
 PrefabInstance:
   m_ObjectHideFlags: 0

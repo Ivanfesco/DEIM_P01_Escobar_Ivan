@@ -14,7 +14,7 @@ public class Key : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             inventoryvar = collision.gameObject.GetComponent<InventoryScript>();
-            inventoryvar.holdingkey = true;
+
             Destroy(gameObject);
         }
     }

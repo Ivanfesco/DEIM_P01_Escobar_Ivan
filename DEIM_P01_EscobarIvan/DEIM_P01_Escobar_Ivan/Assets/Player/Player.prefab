@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8998440738387899470}
   - component: {fileID: 9187343745647066277}
   - component: {fileID: 4591806384911498729}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: hearticon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 620153763370570537}
   - component: {fileID: 688309918264669886}
   - component: {fileID: 2023579420255858738}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Coincount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 3616669280786831603}
   - component: {fileID: 5271455912217990808}
   - component: {fileID: 4398775029177273223}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6734672531443454118}
   - {fileID: 8110558903155470208}
   - {fileID: 516432954174420659}
   - {fileID: 8998440738387899470}
@@ -328,7 +327,7 @@ GameObject:
   - component: {fileID: 8678591926376232257}
   - component: {fileID: 3262487380776916392}
   - component: {fileID: 4287597998948053477}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: gameovertext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,81 +450,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &2513182386794580674
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6734672531443454118}
-  - component: {fileID: 7922561545789681254}
-  - component: {fileID: 8649305849474772959}
-  m_Layer: 5
-  m_Name: keyuiIcon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6734672531443454118
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2513182386794580674}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2818449779650038455}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 1}
---- !u!222 &7922561545789681254
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2513182386794580674}
-  m_CullTransparentMesh: 1
---- !u!114 &8649305849474772959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2513182386794580674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 759642997, guid: 067ce4474799fb24fb8d2d024bd3f87c, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2580036263829446630
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +461,7 @@ GameObject:
   - component: {fileID: 8658868583076572262}
   - component: {fileID: 5838671806664529403}
   - component: {fileID: 9190315064911364048}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: redbg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +542,7 @@ GameObject:
   - component: {fileID: 7865114941515661281}
   - component: {fileID: 1747819697985642294}
   - component: {fileID: 3857356110386613254}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -785,6 +709,10 @@ MonoBehaviour:
   footparticlesR: {fileID: 7042524844090794902}
   footparticlesL: {fileID: 5926491201416159345}
   bulletParticle: {fileID: 4246850716182866165}
+  maxvel: 10
+  damage: 1
+  hasBulletPenetration: 0
+  amountOfBulletsToSpawn: 1
 --- !u!61 &338760968213367714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -863,7 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831747aba4d8ddc4bb74794b19e0ff8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyuiIcon: {fileID: 2513182386794580674}
+  keyuiIcon: {fileID: 0}
   moneytext: {fileID: 2023579420255858738}
   BulletCounter: {fileID: 4978394091458845416}
   bulletcounterarray:
@@ -885,6 +813,7 @@ MonoBehaviour:
   money: 0
   holdingkey: 0
   bulletAmount: 0
+  maxBulletAmount: 10
 --- !u!114 &3857356110386613254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,6 +834,7 @@ MonoBehaviour:
   hearticon3: {fileID: 6771463804169640826}
   gameovercanvas: {fileID: 8134425567748453579}
   health: 3
+  maxHealth: 3
 --- !u!1 &2923604875237901363
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,7 +846,7 @@ GameObject:
   - component: {fileID: 8692965720369786127}
   - component: {fileID: 5926491201416159345}
   - component: {fileID: 7842656637211316136}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FootParticlesL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5754,7 +5684,7 @@ GameObject:
   - component: {fileID: 8564994062379540000}
   - component: {fileID: 7042524844090794902}
   - component: {fileID: 8389377804859853145}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FootParticlesR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10592,7 +10522,7 @@ GameObject:
   - component: {fileID: 386863441529979576}
   - component: {fileID: 7739154502647094810}
   - component: {fileID: 5106939264415730517}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BulletCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10668,7 +10598,7 @@ GameObject:
   - component: {fileID: 6472256111154791387}
   - component: {fileID: 8276927782722982709}
   - component: {fileID: 7587899873202290962}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: RetryButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10800,7 +10730,7 @@ GameObject:
   - component: {fileID: 516432954174420659}
   - component: {fileID: 8354508966610940664}
   - component: {fileID: 5276255523790244683}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: hearticon1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10875,7 +10805,7 @@ GameObject:
   - component: {fileID: 8449563309713350715}
   - component: {fileID: 7736242058643835059}
   - component: {fileID: 1968007178099416563}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: hearticon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10950,7 +10880,7 @@ GameObject:
   - component: {fileID: 5899940076473510850}
   - component: {fileID: 3133758006036135765}
   - component: {fileID: 5622543431282671119}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11084,7 +11014,7 @@ GameObject:
   - component: {fileID: 8110558903155470208}
   - component: {fileID: 2855637461877022998}
   - component: {fileID: 5297819442140028585}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: hearticon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11160,7 +11090,7 @@ GameObject:
   - component: {fileID: 440218409814192747}
   - component: {fileID: 3498751990540074060}
   - component: {fileID: 2906153997901695074}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: gameovercanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11263,7 +11193,7 @@ GameObject:
   - component: {fileID: 6192033830607987855}
   - component: {fileID: 4246850716182866165}
   - component: {fileID: 7048560233883727833}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11475,7 +11405,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.4624019, b: 0.08018869, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -11539,7 +11469,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 3.06
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -12003,7 +11933,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.39
       mode: 0
       spread: 0
       speed:
@@ -12061,7 +11991,7 @@ ParticleSystem:
           m_RotationOrder: 4
     arc:
       value: 180
-      mode: 1
+      mode: 3
       spread: 0
       speed:
         serializedVersion: 2
@@ -12620,7 +12550,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     mode: 1
     timeMode: 0
     fps: 30

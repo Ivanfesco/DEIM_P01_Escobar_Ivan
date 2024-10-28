@@ -15,10 +15,7 @@ public class KeyDoor : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             inventoryvar = collision.gameObject.GetComponent<InventoryScript>();
-            if (inventoryvar.holdingkey == true)
-            {
-                SceneManager.LoadScene(SceneToLoad);
-            }
+
         }
     }
 
