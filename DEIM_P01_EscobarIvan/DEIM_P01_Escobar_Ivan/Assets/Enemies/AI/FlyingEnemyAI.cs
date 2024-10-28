@@ -11,6 +11,7 @@ public class FlyingEnemyAI : MonoBehaviour
     public EnemyState State;
     [SerializeField] private DeathManager deathman;
     [SerializeField] private Transform playerTrf;
+    [SerializeField] private GameObject player;
     [SerializeField] private float followRange;
     [SerializeField] private LayerMask layermask;
     private AIPath aiAgent;
@@ -23,6 +24,8 @@ public class FlyingEnemyAI : MonoBehaviour
 
     void Start()
     {
+        player = FindAnyObjectByType<PlayerController>().gameObject;
+        playerTrf =player.gameObject.GetComponent<Transform>();
         State = EnemyState.Chase;
     }
 

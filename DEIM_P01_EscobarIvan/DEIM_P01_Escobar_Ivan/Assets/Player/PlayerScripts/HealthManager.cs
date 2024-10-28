@@ -16,6 +16,7 @@ public class HealthManager : MonoBehaviour
     bool damageable = true;
     float immunitytime = 1;
     public int health = 3;
+    public int maxHealth = 3;
     void Start()
     {
 
@@ -27,6 +28,11 @@ public class HealthManager : MonoBehaviour
 
     private void Update()
     {
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
 
         switch(health)
         {

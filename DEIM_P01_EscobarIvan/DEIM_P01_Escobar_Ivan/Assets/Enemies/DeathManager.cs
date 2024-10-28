@@ -9,11 +9,16 @@ public class DeathManager : MonoBehaviour
     [SerializeField] public GameObject GameObjectToSpawn;
     [SerializeField] public int moneyworth = 1;
     [SerializeField] public bool stompable = true;
-
+    [SerializeField] PlayerController pc;
+    [SerializeField] bool ishelmet;
+    private void Start()
+    {
+        pc = FindAnyObjectByType<PlayerController>();
+    }
     public void damage()
     {
 
-        health--;
+        health = health - pc.damage ;
 
     }
 
@@ -21,15 +26,22 @@ public class DeathManager : MonoBehaviour
     {
         if (health < 1)
         {
-            while (moneyworth > 0)
+            if (ishelmet)
             {
 
-                Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-45, 45))));
-                moneyworth--;
-
-
             }
-            Destroy(gameObject);
+            else
+            {
+                while (moneyworth > 0)
+                {
+
+                    Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-45, 45))));
+                    moneyworth--;
+
+
+                }
+                Destroy(gameObject);
+            }
         }
     }
 

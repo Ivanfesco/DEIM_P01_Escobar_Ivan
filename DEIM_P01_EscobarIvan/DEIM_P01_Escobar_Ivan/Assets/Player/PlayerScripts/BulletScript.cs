@@ -14,8 +14,12 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private SpriteRenderer spriterenderer;
     private int maxvel = 10;
     private DeathManager deathman;
+    private PlayerController pc;
+
     private void Start()
     {
+        pc = FindAnyObjectByType<PlayerController>();
+
         if (Random.Range(0, 2) == 1)
         {
             spriterenderer.flipX = true;
@@ -40,8 +44,11 @@ public class BulletScript : MonoBehaviour
         else if (collision.CompareTag("Enemy"))
         {
             deathman = collision.gameObject.GetComponent<DeathManager>();
-            deathman.damage(); 
-            Destroy(gameObject);
+            deathman.damage();
+            if (!pc.hasBulletPenetration)
+            {
+                Destroy(gameObject);
+            }
         }
 
         else

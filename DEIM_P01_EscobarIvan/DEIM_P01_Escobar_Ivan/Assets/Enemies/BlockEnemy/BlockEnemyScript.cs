@@ -15,10 +15,14 @@ public class BlockEnemyScript : MonoBehaviour
     public enum EnemyState { Idle, Attack, Returning};
     public EnemyState State;
     bool attacking;
+    private PlayerController pc;
+    
     // Update is called once per frame
 
     private void Start()
     {
+        pc = FindAnyObjectByType<PlayerController>();
+        playerRef = pc.gameObject;
         rb = gameObject.GetComponent<Rigidbody2D>();
         startpos = gameObject.transform.position;
         State=EnemyState.Idle;
@@ -79,10 +83,16 @@ public class BlockEnemyScript : MonoBehaviour
     {
         if (attacking)
         {
-                print(collision.collider.name);
+            if (collision.collider.name.StartsWith("Player"))
+            {
+                collision.collider.GetComponent<HealthManager>().PlayerDamage(1);
+            }
+            print(collision.collider.name);
                 State = EnemyState.Returning;
                 attacking = false;
+
             
         }
+        
     }
 }

@@ -13,18 +13,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject GameObjectToSpawn;
     [SerializeField] private InventoryScript inventorymanagerref;
     [SerializeField] private float maxjumptime=0.9f;
-    [SerializeField] private int speed = 5;
+    [SerializeField] public int speed = 5;
     [SerializeField] private int jumpspeed;
     [SerializeField] private int recoilspeed = 200;
+    [SerializeField] private ParticleSystem footparticlesR;
+    [SerializeField] private ParticleSystem footparticlesL;
+    [SerializeField] private ParticleSystem bulletParticle;
     private float jumpTime=0;
     private int colidingwith = 0;
     private bool grounded = false;
     private float yvelocity = 0;
     private float xvelocity = 0;
-    private int maxvel = 10;
+    public int maxvel = 10;
     private float extragravity = 0.5f;
     private bool jumping;
     private bool impulseapplied;
+    public int damage = 1;
+    public bool hasBulletPenetration;
+    public int amountOfBulletsToSpawn = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +92,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (grounded == true)
                 {
-
+                    footparticlesL.Play();
+                    footparticlesR.Play();
                     impulseapplied = false;
                     rigidbod.velocity=(new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
                     jumping=true;
@@ -96,6 +103,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (inventorymanagerref.bulletAmount >= 1)
                     {
+                        bulletParticle.Play();
                         inventorymanagerref.bulletAmount = inventorymanagerref.bulletAmount - 1;
                         //halve vertical velocity, add impulse up 
                         rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
@@ -103,8 +111,10 @@ public class PlayerController : MonoBehaviour
                         rigidbod.AddForce(Vector2.up * recoilspeed * Time.deltaTime * inventorymanagerref.bulletAmount * 50);
 
                         //spawn bullet
-                        Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
-
+                        for (int i = 0; i < amountOfBulletsToSpawn; i++)
+                        {
+                            Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
+                        }
                     }
                 }
             }
@@ -155,7 +165,7 @@ public class PlayerController : MonoBehaviour
         animatorvar.SetBool("IsGrounded", grounded);
         if (grounded == true)
         {
-            inventorymanagerref.bulletAmount = 10;
+            inventorymanagerref.bulletAmount = inventorymanagerref.maxBulletAmount;
         }
 
     }
@@ -175,7 +185,9 @@ public class PlayerController : MonoBehaviour
                         rigidbod.AddForce(new Vector2(0, 250));
                         collision.GetComponent<DeathManager>().damage();
                     }
-                } 
+                }
+                footparticlesL.Play();
+                footparticlesR.Play();
                 grounded = true;
                 jumping = false;
                 jumpTime = 0;
@@ -201,7 +213,7 @@ public class PlayerController : MonoBehaviour
                 grounded = true;
                 jumping = false;
                 jumpTime = 0;
-
+                
             }
             else
             {

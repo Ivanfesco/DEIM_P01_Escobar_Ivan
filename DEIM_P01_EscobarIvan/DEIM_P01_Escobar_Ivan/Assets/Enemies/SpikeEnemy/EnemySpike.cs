@@ -13,7 +13,7 @@ public class EnemySpike : MonoBehaviour
     private bool FacingLeft;
     private bool LeftDown;
     private bool RightDown;
-    private float maxvel = 1;
+    private float maxvel = 2;
     [SerializeField] SpriteRenderer spriterend;
     [SerializeField] Rigidbody2D rbref;
     private void OnCollisionEnter2D(Collision2D collision)

@@ -16,6 +16,7 @@ public class InventoryScript : MonoBehaviour
     public int money = 0;
     public bool holdingkey = false;
     public int bulletAmount;
+    public int maxBulletAmount = 10;
 
     private void Update()
     {

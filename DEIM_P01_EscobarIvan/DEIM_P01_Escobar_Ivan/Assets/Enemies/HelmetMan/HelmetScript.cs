@@ -30,7 +30,6 @@ public class HelmetScript : MonoBehaviour
             {
                 boxcol.enabled = false;
                 parentcont.constraintActive = false;
-                Destroy(collision.gameObject);
                 transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-45, 45)));
                 rbvar.gravityScale = 1;
                 rbvar.AddRelativeForce(new Vector2(Random.Range(1, 4), Random.Range(3, 7)), ForceMode2D.Impulse);

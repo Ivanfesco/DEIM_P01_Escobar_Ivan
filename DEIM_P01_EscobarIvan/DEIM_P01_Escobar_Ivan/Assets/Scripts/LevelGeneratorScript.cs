@@ -19,6 +19,8 @@ public class LevelGeneratorScript : MonoBehaviour
     int tileIndex;
     int previousExit = 0;
     bool shopGenerated;
+    int genAttempts;
+    bool end_spawned;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,13 @@ public class LevelGeneratorScript : MonoBehaviour
         }
 
 
-        while (tileNumber < numberOfTilesToGenerate)
+        
+
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (tileNumber < numberOfTilesToGenerate)
         {
             if (tileNumber < 4)
             {
@@ -44,41 +52,66 @@ public class LevelGeneratorScript : MonoBehaviour
             else
             {
                 tileIndex = UnityEngine.Random.Range(0, generatedtiles.Count);
-                if(!shopGenerated)
+                if (!shopGenerated)
                 {
                     if (UnityEngine.Random.Range(0, 5) >= 4)
                     {
-                        Instantiate(ForestShop, new Vector2(0, tileNumber*tileHeight), Quaternion.identity, transform);
+                        Instantiate(ForestShop, new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
                         shopGenerated = true;
                         tileNumber++;
                     }
-                    else 
+                    else
                     {
-                        Instantiate(generatedtiles[tileIndex], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
-                        previousExit = generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType;
-                        generatedtiles.RemoveAt(tileIndex);
-                        tileNumber++;
-
+                        generatetilesfunc();
                     }
                 }
-                else if (generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType != previousExit)
+                else 
                 {
-                    Instantiate(generatedtiles[tileIndex], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
-                    previousExit = generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType;
-                    generatedtiles.RemoveAt(tileIndex);
-                    tileNumber++;
-
+                    generatetilesfunc();
                 }
 
 
             }
         }
-        Instantiate(tilesEnd[0], new Vector2(0, tileNumber*tileHeight), Quaternion.identity, transform);
 
-    }
-    // Update is called once per frame
-    void Update()
-    {
+        if (tileNumber == numberOfTilesToGenerate)
+        {
+            if(!end_spawned)
+            {
+                Instantiate(tilesEnd[0], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
+                end_spawned = true;
+            }
+        }
         
+    }
+
+    void generatetilesfunc()
+    {
+        if (genAttempts < 10)
+        {
+            if (generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType != previousExit)
+            {
+                Instantiate(generatedtiles[tileIndex], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
+                if (generatedtiles[tileIndex].GetComponent<LevelTileCriteria>() != null)
+                {
+
+                    previousExit = generatedtiles[tileIndex].GetComponent<LevelTileCriteria>().exitType;
+                }
+
+                generatedtiles.RemoveAt(tileIndex);
+                tileNumber++;
+                genAttempts = 0;
+            }
+            else
+            {
+                genAttempts++;
+            }
+        }
+        else
+        {
+            Instantiate(generatedtiles[tileIndex], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
+            generatedtiles.RemoveAt(tileIndex);
+            tileNumber++;
+        }
     }
 }

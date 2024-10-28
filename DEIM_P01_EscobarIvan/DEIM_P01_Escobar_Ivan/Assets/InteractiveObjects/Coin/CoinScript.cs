@@ -12,6 +12,7 @@ public class CoinScript : MonoBehaviour
     void Start()
     {
         rb.AddRelativeForce(new Vector2(0, Random.Range(3,7)), ForceMode2D.Impulse);
+        inventoryvar = FindAnyObjectByType<InventoryScript>();
     }
 
     // Update is called once per frame
@@ -22,7 +23,6 @@ public class CoinScript : MonoBehaviour
             if (!coingiven)
             {
                 coingiven = true;
-                inventoryvar = other.gameObject.GetComponent<InventoryScript>();
                 inventoryvar.money++;
                 Destroy(gameObject);
             }
