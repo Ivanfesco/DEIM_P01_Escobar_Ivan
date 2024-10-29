@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public int amountOfBulletsToSpawn = 1;
     private UnityEngine.SceneManagement.Scene scene;
 
+    public List<string> items = new List<string>();
 
     // Start is called before the first frame update
     private void Awake()
@@ -47,12 +51,15 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
         if(Input.GetKeyDown(KeyCode.R))
@@ -125,7 +132,7 @@ public class PlayerController : MonoBehaviour
                         //spawn bullet
                         for (int i = 0; i < amountOfBulletsToSpawn; i++)
                         {
-                            Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
+                            Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(-5, 5))));
                         }
                     }
                 }
