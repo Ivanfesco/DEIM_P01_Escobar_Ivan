@@ -1,4 +1,4 @@
-using UnityEditor.SearchService;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -38,16 +38,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         scene = SceneManager.GetActiveScene();
-        if (scene.name.StartsWith("Desert") || scene.name.StartsWith("Forest") || scene.name.StartsWith("Tundra"))
-        {
+       /// if (scene.name.StartsWith("Desert") || scene.name.StartsWith("Forest") || scene.name.StartsWith("Tundra"))
+       /// {
             
-            gameObject.transform.position = new Vector3(0, -20, 0);
-        }
+       ///     gameObject.transform.position = new Vector3(0, -20, 0);
+       /// }
     }
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+
     }
 
     // Update is called once per frame
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 25);
+                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 50);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 25);
+                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 50);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
     public void restartscene()
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("MainMenu");
 
     }
 }

@@ -111,7 +111,7 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 128
-  damage: 0
+  damage: 1
 --- !u!114 &1399814443997739092
 MonoBehaviour:
   m_ObjectHideFlags: 0

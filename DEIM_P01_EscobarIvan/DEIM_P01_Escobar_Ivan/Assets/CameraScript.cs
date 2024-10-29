@@ -7,7 +7,10 @@ public class CameraScript : MonoBehaviour
     [SerializeField] private GameObject player;
 
     // Start is called before the first frame update
-    
+    private void Start()
+    {
+        player = FindAnyObjectByType<PlayerController>().gameObject ;
+    }
 
     // Update is called once per frame
     void Update()
