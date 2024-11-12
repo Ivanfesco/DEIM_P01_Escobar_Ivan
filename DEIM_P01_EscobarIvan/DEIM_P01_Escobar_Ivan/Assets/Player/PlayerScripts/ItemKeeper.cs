@@ -24,14 +24,5 @@ public class ItemKeeper : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if ( !itemsKept.Equals(pc.items) && pc.items.Count > 0)
-        {
-            itemsKept.Clear();
-            itemsKept.AddRange(pc.items);
-        }
 
-        
-    }
 }
