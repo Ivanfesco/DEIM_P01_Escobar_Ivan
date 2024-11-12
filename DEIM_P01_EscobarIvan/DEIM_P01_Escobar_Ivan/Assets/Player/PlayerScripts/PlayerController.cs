@@ -8,6 +8,9 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+    [Tooltip("referencia a config data")]
+    [SerializeField] private PlayerConfigData Config;
+
     public bool inputallowed = true;
     [SerializeField] private SpriteRenderer spriterender;
     [SerializeField] private Rigidbody2D rigidbod;
@@ -77,14 +80,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 25);
+                rigidbod.AddForce(Vector2.right * Config.movementSpeed * Time.fixedDeltaTime * 25);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
             else if (Input.GetKeyUp(KeyCode.D))
             {
 
-                // paro en seco VV
+                
                 rigidbod.velocity = new Vector2(2, yvelocity);
 
             }
@@ -93,13 +96,13 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 25);
+                rigidbod.AddForce(Vector2.left * Config.movementSpeed * Time.fixedDeltaTime * 25);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
             else if (Input.GetKeyUp(KeyCode.A))
             {
-                //paro en seco VV
+                
                 rigidbod.velocity = new Vector2(-2, yvelocity);
 
             }
