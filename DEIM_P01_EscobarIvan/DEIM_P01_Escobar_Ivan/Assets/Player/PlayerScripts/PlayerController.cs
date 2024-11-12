@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (inventorymanagerref.bulletAmount >= 1)
                     {
+                        AudioManager.playBulletShot();
                         bulletParticle.Play();
                         inventorymanagerref.bulletAmount = inventorymanagerref.bulletAmount - 1;
                         //halve vertical velocity, add impulse up 

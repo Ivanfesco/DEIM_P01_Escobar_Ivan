@@ -11,12 +11,14 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private GameObject hearticon2;
     [SerializeField] private GameObject hearticon3;
     [SerializeField] private GameObject gameovercanvas;
-    float timer=0;
-    float timeElapsed=0;
+    float timer = 0;
+    float timeElapsed = 0;
     bool damageable = true;
     float immunitytime = 1;
     public int health = 3;
     public int maxHealth = 3;
+    bool flippingBool;
+    float flippingTimer;
     void Start()
     {
 
@@ -24,17 +26,17 @@ public class HealthManager : MonoBehaviour
 
 
     }
-    
+
 
     private void Update()
     {
-        if(health > maxHealth)
+        if (health > maxHealth)
         {
             health = maxHealth;
         }
 
 
-        switch(health)
+        switch (health)
         {
 
             case 3:
@@ -77,6 +79,34 @@ public class HealthManager : MonoBehaviour
             damageable = true;
         }
 
+        if (!damageable)
+        {
+            gameObject.GetComponent<Animator>().SetBool("IsDamaged", true);
+            if (Time.time > flippingTimer)
+            {
+                flippingTimer = Time.time + 0.1f;
+                flippingBool = !flippingBool;
+            }
+
+            if (flippingBool)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 50);
+
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 100);
+
+            }
+
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+            gameObject.GetComponent<Animator>().SetBool("IsDamaged", false);
+
+        }
+
     }
 
     public void PlayerDamage(int damage)
@@ -84,10 +114,12 @@ public class HealthManager : MonoBehaviour
     {
         if (damageable)
         {
+            AudioManager.playDamage();
             damageable = false;
             health = health - damage;
             timer = 0;
             timeElapsed = Time.time;
+            flippingTimer = Time.time + 0.1f;
         }
     }
 }

@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource objectsAudioSource;
     [SerializeField] private AudioClip Coin;
     [SerializeField] private AudioClip Item;
+    [SerializeField] private AudioSource damageSource;
+    [SerializeField] private AudioSource bulletShotSource;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -32,15 +34,37 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void playCoinSound()
+    public static void playDamage()
     {
-        instance.objectsAudioSource.clip = instance.Coin;
-        instance.objectsAudioSource.Play();
+        if (!instance.damageSource.isPlaying)
+        {
+            instance.damageSource.pitch = Random.Range(0.95f, 1.05f);
+            instance.damageSource.Play();
+        }
     }
 
-    public static void playItemSound()
+    public static void playBulletShot()
     {
-        instance.objectsAudioSource.clip = instance.Item;
+        instance.bulletShotSource.pitch = Random.Range(0.85f, 1.15f);
+        instance.bulletShotSource.Play();
+
+    }
+
+    public static void playObjectSound(string soundtoplay)
+    {
+        instance.objectsAudioSource.pitch = Random.Range(0.95f, 1.05f);
+        switch (soundtoplay)
+        {
+            case "coin":
+                instance.objectsAudioSource.clip = instance.Coin;
+                break;
+            case "item":
+                instance.objectsAudioSource.clip = instance.Item;
+                break;
+            default:
+                break;
+        }
+
         instance.objectsAudioSource.Play();
     }
 }

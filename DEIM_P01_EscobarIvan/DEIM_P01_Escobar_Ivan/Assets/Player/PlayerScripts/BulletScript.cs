@@ -24,14 +24,17 @@ public class BulletScript : MonoBehaviour
         {
             spriterenderer.flipX = true;
         }
+        rigidbodref.AddRelativeForce(Vector2.down*15, ForceMode2D.Impulse);
 
     }
+
     // Update is called once per frame
     void Update()
     {
-        rigidbodref.AddRelativeForce(Vector2.down, ForceMode2D.Impulse);
-        rigidbodref.velocity = new Vector2(Mathf.Clamp(rigidbodref.velocity.x, -maxvel/4, maxvel/4), Mathf.Clamp(rigidbodref.velocity.y, -maxvel, maxvel));
-
+        if(rigidbodref.velocity.y > maxvel)
+        {
+            rigidbodref.velocity = new Vector2(rigidbodref.velocity.x, rigidbodref.velocity.y - 0.001f);
+        }
 
     }
     private void OnTriggerEnter2D(Collider2D collision)

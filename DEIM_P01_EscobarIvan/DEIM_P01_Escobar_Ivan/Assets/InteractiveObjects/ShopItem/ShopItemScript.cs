@@ -32,7 +32,7 @@ public class ShopItemScript : MonoBehaviour
                     invscr.money = invscr.money - spawneditem.GetComponent<ItemManager>().itemPrice;
                     Destroy(spawneditem);
                     gameObject.GetComponent<SpriteRenderer>().sprite = spritelist[1];
-
+                    AudioManager.playObjectSound("item");
 
                 }
             }

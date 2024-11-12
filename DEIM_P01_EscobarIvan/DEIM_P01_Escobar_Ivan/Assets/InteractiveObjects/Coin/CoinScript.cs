@@ -25,6 +25,7 @@ public class CoinScript : MonoBehaviour
                 coingiven = true;
                 inventoryvar.money++;
                 Destroy(gameObject);
+                AudioManager.playObjectSound("coin");
             }
 
         }
