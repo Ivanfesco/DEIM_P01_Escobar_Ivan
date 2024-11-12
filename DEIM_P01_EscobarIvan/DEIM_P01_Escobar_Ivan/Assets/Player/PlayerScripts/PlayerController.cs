@@ -1,16 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    [Tooltip("referencia a config data")]
-    [SerializeField] private PlayerConfigData Config;
-
     public bool inputallowed = true;
     [SerializeField] private SpriteRenderer spriterender;
     [SerializeField] private Rigidbody2D rigidbod;
@@ -25,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem footparticlesR;
     [SerializeField] private ParticleSystem footparticlesL;
     [SerializeField] private ParticleSystem bulletParticle;
+
     private float jumpTime=0;
     private int colidingwith = 0;
     private bool grounded = false;
@@ -39,39 +34,35 @@ public class PlayerController : MonoBehaviour
     public int amountOfBulletsToSpawn = 1;
     private UnityEngine.SceneManagement.Scene scene;
 
-    public List<string> items = new List<string>();
 
     // Start is called before the first frame update
     private void Awake()
     {
         scene = SceneManager.GetActiveScene();
-        if (scene.name.StartsWith("Desert") || scene.name.StartsWith("Forest") || scene.name.StartsWith("Tundra"))
-        {
+       /// if (scene.name.StartsWith("Desert") || scene.name.StartsWith("Forest") || scene.name.StartsWith("Tundra"))
+       /// {
             
-            gameObject.transform.position = new Vector3(0, -20, 0);
-        }
+       ///     gameObject.transform.position = new Vector3(0, -20, 0);
+       /// }
     }
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             restartscene();
         }
 
         // limit max velocity
-        rigidbod.velocity = new Vector2 (Mathf.Clamp(xvelocity, -maxvel, maxvel), yvelocity);
+        rigidbod.velocity = new Vector2(Mathf.Clamp(xvelocity, -maxvel, maxvel), yvelocity);
 
         ///////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////INPUT ZONE///////////////////////////////////
@@ -80,14 +71,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * Config.movementSpeed * Time.fixedDeltaTime * 25);
+                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 50);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
             else if (Input.GetKeyUp(KeyCode.D))
             {
 
-                
+                // paro en seco VV
                 rigidbod.velocity = new Vector2(2, yvelocity);
 
             }
@@ -96,13 +87,13 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * Config.movementSpeed * Time.fixedDeltaTime * 25);
+                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 50);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
             else if (Input.GetKeyUp(KeyCode.A))
             {
-                
+                //paro en seco VV
                 rigidbod.velocity = new Vector2(-2, yvelocity);
 
             }
@@ -117,9 +108,9 @@ public class PlayerController : MonoBehaviour
                     footparticlesL.Play();
                     footparticlesR.Play();
                     impulseapplied = false;
-                    rigidbod.velocity=(new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
-                    jumping=true;
-                    jumpTime=0;
+                    rigidbod.velocity = (new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
+                    jumping = true;
+                    jumpTime = 0;
                 }
                 else
                 {
@@ -135,14 +126,14 @@ public class PlayerController : MonoBehaviour
                         //spawn bullet
                         for (int i = 0; i < amountOfBulletsToSpawn; i++)
                         {
-                            Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(-5, 5))));
+                            Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
                         }
                     }
                 }
             }
             if (Input.GetKeyUp(KeyCode.Space) || (jumpTime >= maxjumptime))
             {
-                if(rigidbod.velocity.y >= 2)
+                if (rigidbod.velocity.y >= 2)
                 {
                     if (!impulseapplied)
                     {
@@ -150,14 +141,14 @@ public class PlayerController : MonoBehaviour
                         rigidbod.velocity = new Vector2(rigidbod.velocity.x, 3);
                     }
                 }
-                
+
             }
 
             if (jumping)
             {
                 jumpTime += Time.fixedDeltaTime;
             }
-            
+
         }
         ////////////////////////////////////////////////////////////////////
 
@@ -167,6 +158,7 @@ public class PlayerController : MonoBehaviour
 
 
         animatorvar.SetBool("IsRunning", Mathf.Abs(0 - rigidbod.velocity.x) >= 0.01);
+
 
         animatorvar.SetBool("IsJumping", yvelocity>=0.01);
 
@@ -191,6 +183,19 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void PlayStep()
+    {
+        if (Mathf.Abs(0 - rigidbod.velocity.x) >= 0.01 && grounded)
+        {
+
+            AudioManager.playFootStep();
+            
+        }
+
+    }
+
+
     //Check para saber si se está tocando el suelo
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -253,7 +258,7 @@ public class PlayerController : MonoBehaviour
     public void restartscene()
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("MainMenu");
 
     }
 }
