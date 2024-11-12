@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cecdd1b4400f0104c99b0337c44dc2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invscript: {fileID: 0}
 --- !u!114 &-1031941917634907017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,5 +110,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb67c43744cc6c4bae59fcb1f101e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrice: 2
-  gameobjectname: 

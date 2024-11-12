@@ -190,10 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   GameObjectToSpawn: {fileID: 8673981107608724684, guid: e7338f4f53979b44aa4ab11982ccd501, type: 3}
-  moneyworth: 1
+  moneyworth: 3
   stompable: 0
-  pc: {fileID: 0}
-  ishelmet: 0
 --- !u!61 &8552184246160403861
 BoxCollider2D:
   m_ObjectHideFlags: 0

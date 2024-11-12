@@ -110,5 +110,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb67c43744cc6c4bae59fcb1f101e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrice: 3
   gameobjectname: 
