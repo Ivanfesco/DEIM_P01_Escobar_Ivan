@@ -7449,7 +7449,6 @@ GameObject:
   m_Component:
   - component: {fileID: 131096614191098533}
   - component: {fileID: 6793359170808303461}
-  - component: {fileID: 5270158809325079483}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -7517,18 +7516,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5270158809325079483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2980531017826950389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7ac16122a5959b408f31fc516a2bd8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3118609818791229045
 GameObject:
   m_ObjectHideFlags: 0
@@ -7539,6 +7526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7894017709931195990}
   - component: {fileID: 8970963134608832916}
+  - component: {fileID: 5557069591057858632}
   m_Layer: 0
   m_Name: Grid END
   m_TagString: Untagged
@@ -7575,3 +7563,16 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &5557069591057858632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118609818791229045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7363fcbd07418042abe662b014cec24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenetoload: MainMenu

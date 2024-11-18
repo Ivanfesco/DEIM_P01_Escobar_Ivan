@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip Item;
     [SerializeField] private AudioSource damageSource;
     [SerializeField] private AudioSource bulletShotSource;
+    [SerializeField] private AudioSource jumpSource;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -66,5 +67,12 @@ public class AudioManager : MonoBehaviour
         }
 
         instance.objectsAudioSource.Play();
+    }
+
+    public static void playJumpSound()
+    {
+        instance.jumpSource.pitch = Random.Range(0.85f, 1.15f);
+        instance.jumpSource.Play();
+
     }
 }

@@ -13,7 +13,7 @@ public class ItemKeeper : MonoBehaviour
     {
         pc = FindAnyObjectByType<PlayerController>();
         DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

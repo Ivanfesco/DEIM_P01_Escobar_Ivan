@@ -7789,7 +7789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121068291488068405}
   - component: {fileID: 5125103619474931166}
-  - component: {fileID: 5666678859157530103}
+  - component: {fileID: 2167357584741580947}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -7857,7 +7857,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5666678859157530103
+--- !u!114 &2167357584741580947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7866,9 +7866,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6175890353791314084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce5c9456373d8a458670a9d4332d4ff, type: 3}
+  m_Script: {fileID: 11500000, guid: e7363fcbd07418042abe662b014cec24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenetoload: Desert
 --- !u!1001 &851387312773577676
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        scene = SceneManager.GetActiveScene();
+        scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
        /// if (scene.name.StartsWith("Desert") || scene.name.StartsWith("Forest") || scene.name.StartsWith("Tundra"))
        /// {
             
@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (grounded == true)
                 {
+                    AudioManager.playJumpSound();
                     footparticlesL.Play();
                     footparticlesR.Play();
                     impulseapplied = false;
@@ -259,7 +260,7 @@ public class PlayerController : MonoBehaviour
     public void restartscene()
     {
 
-        SceneManager.LoadScene("MainMenu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 
     }
 }

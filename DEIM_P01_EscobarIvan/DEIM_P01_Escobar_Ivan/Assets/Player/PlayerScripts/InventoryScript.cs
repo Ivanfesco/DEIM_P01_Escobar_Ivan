@@ -21,7 +21,7 @@ public class InventoryScript : MonoBehaviour
 
     private void Start()
     {
-        scene =  SceneManager.GetActiveScene();
+        scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
     }
     private void Update()
     {

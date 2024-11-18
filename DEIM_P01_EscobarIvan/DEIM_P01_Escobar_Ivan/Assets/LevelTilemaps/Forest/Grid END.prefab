@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7363fcbd07418042abe662b014cec24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenetoload: Tundra
 --- !u!1 &2647839742869852176
 GameObject:
   m_ObjectHideFlags: 0
