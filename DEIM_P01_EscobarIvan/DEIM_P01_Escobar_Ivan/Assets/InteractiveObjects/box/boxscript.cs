@@ -7,6 +7,8 @@ public class boxscript : MonoBehaviour
     [SerializeField] private Rigidbody2D rbvar;
     [SerializeField] private GameObject GameObjectToSpawn;
     [SerializeField] private BoxCollider2D boxcol;
+    [SerializeField] ParticleSystem particlestospawn;
+
     private DeathManager deathman;
     float previousVelocity = 0f;
     int frames = 0;
@@ -32,7 +34,6 @@ public class boxscript : MonoBehaviour
 
 
             spawncoinsondeath();
-
             Destroy(gameObject);
 
 
@@ -62,6 +63,8 @@ public class boxscript : MonoBehaviour
    
     void spawncoinsondeath()
     {
+        Instantiate(particlestospawn, transform.position, transform.rotation);
+
         if (Random.Range(0, 4) >= 3)
         {
             coinstospawn = Random.Range(0, 3);

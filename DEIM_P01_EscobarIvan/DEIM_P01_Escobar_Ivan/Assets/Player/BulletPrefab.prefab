@@ -144,6 +144,7 @@ MonoBehaviour:
   boxcol: {fileID: 1378231128732480033}
   rigidbodref: {fileID: 444806739994382242}
   spriterenderer: {fileID: 1198816063832701509}
+  groundcolparticle: {fileID: 1907314279921845402, guid: c953ddb0fc0fd2f44afda225269d4166, type: 3}
 --- !u!50 &444806739994382242
 Rigidbody2D:
   serializedVersion: 4

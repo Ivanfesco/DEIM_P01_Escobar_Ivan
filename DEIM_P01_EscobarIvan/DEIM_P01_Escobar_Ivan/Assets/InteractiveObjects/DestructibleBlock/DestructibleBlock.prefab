@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9d4ecacacba2b43b9f1a1562f8e793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rbvar: {fileID: 2647096791093653248}
+  particlestospawn: {fileID: 7003047844911418137, guid: 95cf2c9e03415a84ba2f40e000737c8f, type: 3}

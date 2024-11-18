@@ -49,16 +49,24 @@ public class LevelGeneratorScript : MonoBehaviour
                 tileIndex = UnityEngine.Random.Range(0, generatedtiles.Count);
                 if (!shopGenerated)
                 {
-                    if (UnityEngine.Random.Range(0, 5) >= 4)
+                    if (tileNumber > numberOfTilesToGenerate / 4 && tileNumber < numberOfTilesToGenerate * 0.75f)
                     {
-                        Instantiate(ForestShop, new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
-                        shopGenerated = true;
-                        tileNumber++;
+                        if (UnityEngine.Random.Range(0, 5) >= 4)
+                        {
+                            Instantiate(ForestShop, new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
+                            shopGenerated = true;
+                            tileNumber++;
+                        }
+                        else
+                        {
+                            generatetilesfunc();
+                        }
                     }
                     else
                     {
                         generatetilesfunc();
                     }
+
                 }
                 else
                 {
@@ -75,17 +83,17 @@ public class LevelGeneratorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         if (tileNumber == numberOfTilesToGenerate)
         {
-            if(!end_spawned)
+            if (!end_spawned)
             {
                 Instantiate(tilesEnd[0], new Vector2(0, tileNumber * tileHeight), Quaternion.identity, transform);
                 end_spawned = true;
             }
         }
-        
+
     }
 
     void generatetilesfunc()
@@ -121,7 +129,7 @@ public class LevelGeneratorScript : MonoBehaviour
     void generationended()
     {
         var gg = AstarPath.active.data.gridGraph;
-        
+
         gg.RelocateNodes(center: new Vector3(0, (numberOfTilesToGenerate * tileHeight) / 2, 0), rotation: Quaternion.identity, nodeSize: 0.25f);
         gg.is2D = true;
         gg.SetDimensions(112, tileHeight * numberOfTilesToGenerate * 4, 0.25f);

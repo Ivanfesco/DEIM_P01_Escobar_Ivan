@@ -15,7 +15,7 @@ public class BulletScript : MonoBehaviour
     private int maxvel = 10;
     private DeathManager deathman;
     private PlayerController pc;
-
+    [SerializeField] ParticleSystem groundcolparticle;
     private void Start()
     {
         pc = FindAnyObjectByType<PlayerController>();
@@ -51,12 +51,14 @@ public class BulletScript : MonoBehaviour
             if (!pc.hasBulletPenetration)
             {
                 Destroy(gameObject);
+
+
             }
         }
 
         else
         {
-
+            Instantiate(groundcolparticle, transform.position, transform.rotation);
             Destroy(gameObject);
 
         }

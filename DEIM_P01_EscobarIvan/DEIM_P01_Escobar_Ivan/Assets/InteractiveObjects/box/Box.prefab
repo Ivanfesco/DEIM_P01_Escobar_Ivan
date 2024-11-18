@@ -175,6 +175,7 @@ MonoBehaviour:
   rbvar: {fileID: 2647096791093653248}
   GameObjectToSpawn: {fileID: 8673981107608724684, guid: e7338f4f53979b44aa4ab11982ccd501, type: 3}
   boxcol: {fileID: 0}
+  particlestospawn: {fileID: 7003047844911418137, guid: 95cf2c9e03415a84ba2f40e000737c8f, type: 3}
 --- !u!61 &821117637331035139
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DestructibleBlockScript : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rbvar;
-
+    [SerializeField] ParticleSystem particlestospawn;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,7 +12,11 @@ public class DestructibleBlockScript : MonoBehaviour
         if (collision.name.StartsWith("BulletPrefab"))
         {
             Destroy(collision.gameObject);
+            Instantiate(particlestospawn, transform.position, transform.rotation);
             Destroy(gameObject);
+           
+            
+
         }
 
     }
