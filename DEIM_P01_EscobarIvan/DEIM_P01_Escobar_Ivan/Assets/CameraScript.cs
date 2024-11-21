@@ -15,14 +15,13 @@ public class CameraScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        print(gameObject.transform.position.y - target.y);
         target = new Vector3(0, player.transform.position.y + player.GetComponent<Rigidbody2D>().velocity.y / 10, -2);
         if (Mathf.Abs(player.transform.position.x) < 50 )
         {
             //     gameObject.transform.position = new Vector3(0, player.transform.position.y + player.GetComponent<Rigidbody2D>().velocity.y / 10, -2);
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, gameObject.transform.position.y - target.y / 100);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,target , Mathf.Abs(gameObject.transform.position.y - target.y) / 2 );
         }
         else
         {

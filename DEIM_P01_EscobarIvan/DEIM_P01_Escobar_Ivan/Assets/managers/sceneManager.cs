@@ -64,6 +64,9 @@ namespace GestionEscenas
                 yield return null;
             }
 
+            InventoryScript.instance.CheckForIcons();
+            HealthManager.instance.checkForIcons();
+
             instance.transitionImage.GetComponent<Animator>().SetTrigger("FadeIn");
             
             while(!doneFadeIn)

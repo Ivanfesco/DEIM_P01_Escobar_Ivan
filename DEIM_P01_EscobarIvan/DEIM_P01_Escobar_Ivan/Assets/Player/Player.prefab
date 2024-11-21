@@ -540,8 +540,6 @@ GameObject:
   - component: {fileID: 5142440170471071652}
   - component: {fileID: 338760968213367714}
   - component: {fileID: 7865114941515661281}
-  - component: {fileID: 1747819697985642294}
-  - component: {fileID: 3857356110386613254}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -701,7 +699,6 @@ MonoBehaviour:
   groundcol: {fileID: 338760968213367714}
   animatorvar: {fileID: 7865114941515661281}
   GameObjectToSpawn: {fileID: 4777781221135187401, guid: 1d7c7b501297c824789ee737bcf70a30, type: 3}
-  inventorymanagerref: {fileID: 1747819697985642294}
   maxjumptime: 0.9
   speed: 7
   jumpspeed: 7
@@ -779,60 +776,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1747819697985642294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2798256280726437378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831747aba4d8ddc4bb74794b19e0ff8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneytext: {fileID: 2023579420255858738}
-  BulletCounter: {fileID: 4978394091458845416}
-  bulletcounterarray:
-  - {fileID: 21300000, guid: fcad557b1add2a345a862502a32da7ce, type: 3}
-  - {fileID: 21300000, guid: 5ea7f063b74b0f74790b260e04cd043b, type: 3}
-  - {fileID: 21300000, guid: 0496e3fa61c138b4588285cdff2aeef8, type: 3}
-  - {fileID: 21300000, guid: 6408d1feeb9217141854fe0f6b1096bd, type: 3}
-  - {fileID: 21300000, guid: c033c75550f2b90448a8019de53d6ac5, type: 3}
-  - {fileID: 21300000, guid: a533bfa955422e8408df547b57767357, type: 3}
-  - {fileID: 21300000, guid: b93fd5ef89f9fe54ca30a0fd449cd529, type: 3}
-  - {fileID: 21300000, guid: 4274877da0501e74a987f216f4404d46, type: 3}
-  - {fileID: 21300000, guid: 10369105dd9d9c44da268d7ec4771520, type: 3}
-  - {fileID: 21300000, guid: 88f0c23b56329434faf303691980be99, type: 3}
-  - {fileID: 21300000, guid: 0b154023281fd0b4b8ffbbc0b090ed0b, type: 3}
-  - {fileID: 21300000, guid: 69b8de9694503f847a7ea3bd8c34fc5a, type: 3}
-  - {fileID: 21300000, guid: 7a37416b8b23ebb4481e1aca1a5c43d9, type: 3}
-  - {fileID: 21300000, guid: 2db25b415da5f144380d6202f6a079af, type: 3}
-  - {fileID: 21300000, guid: 3fcc531d6afc3764183c53604a63be91, type: 3}
-  money: 0
-  bulletAmount: 0
-  maxBulletAmount: 10
---- !u!114 &3857356110386613254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2798256280726437378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7746a618509974ba2c879f93a61fcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartarray:
-  - {fileID: -1034669053, guid: 067ce4474799fb24fb8d2d024bd3f87c, type: 3}
-  - {fileID: 85860459, guid: 067ce4474799fb24fb8d2d024bd3f87c, type: 3}
-  hearticon1: {fileID: 7967772075386740822}
-  hearticon2: {fileID: 108034108832375707}
-  hearticon3: {fileID: 6771463804169640826}
-  gameovercanvas: {fileID: 8134425567748453579}
-  health: 3
-  maxHealth: 3
 --- !u!1 &2923604875237901363
 GameObject:
   m_ObjectHideFlags: 0
@@ -10729,7 +10672,7 @@ GameObject:
   - component: {fileID: 8354508966610940664}
   - component: {fileID: 5276255523790244683}
   m_Layer: 7
-  m_Name: hearticon1 (1)
+  m_Name: coinIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

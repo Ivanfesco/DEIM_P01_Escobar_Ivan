@@ -5,6 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using System.Linq;
+using System;
 
 
 public class InventoryScript : MonoBehaviour
@@ -14,40 +18,104 @@ public class InventoryScript : MonoBehaviour
     [SerializeField] private GameObject BulletCounter;
     [SerializeField] private Sprite[] bulletcounterarray;
     public int money = 0;
-
+    public static InventoryScript instance;
+    private Image[] images;
+    private TextMeshProUGUI[] tmptexts;
     public int bulletAmount;
     public int maxBulletAmount = 10;
-    private UnityEngine.SceneManagement.Scene scene;
+    [SerializeField] private UnityEngine.SceneManagement.Scene scene;
+
+    public int extraDamage;
+    public bool bulletPenetrationBool;
+    public int extraBullets = 0;
+    public int extraSpeed;
+    public int extraMaxVel;
+
+    private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+
 
     private void Start()
     {
-        scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        
+        CheckForIcons();
     }
+
+    public void CheckForIcons()
+    {
+        scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        images = FindObjectsOfType<Image>();
+        tmptexts = FindObjectsOfType<TextMeshProUGUI>();
+
+        foreach (var item in images)
+        {
+            if (item.gameObject.name == "BulletCounter")
+            {
+                BulletCounter = item.gameObject;
+            }
+        }
+
+        foreach (var item in tmptexts)
+        {
+            if(item.gameObject.name == "Coincount")
+            {
+                moneytext = item;
+            }
+
+        }
+
+
+    }
+
     private void Update()
     {
 
-        if (scene.name.StartsWith("Forest"))
+        //reset all items
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenu")
         {
-            BulletCounter.gameObject.GetComponent<Image>().color = new Color32(45,176,130,255);
-        }
-        else if (scene.name.StartsWith("Tundra"))
-        {
-            BulletCounter.gameObject.GetComponent<Image>().color = new Color32(44, 196, 246, 255);
-        }
-        else if (scene.name.StartsWith("Desert"))
-        {
-            BulletCounter.gameObject.GetComponent<Image>().color = new Color32(238, 161, 96, 255);
+            money = 0;
+            maxBulletAmount = 10;
+            extraDamage = 0;
+            extraBullets = 0;
+            extraSpeed = 0;
+            extraMaxVel = 0;
+            extraSpeed = 0;
+            bulletPenetrationBool = false;  
         }
 
-        moneytext.SetText(money.ToString());
 
-        if (bulletAmount <= 13)
+        if (instance.scene.name.StartsWith("Forest"))
         {
-                BulletCounter.GetComponent<Image>().sprite = bulletcounterarray[bulletAmount];
+            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(45,176,130,255);
+        }
+        else if (instance.scene.name.StartsWith("Tundra"))
+        {
+            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(44, 196, 246, 255);
+        }
+        else if (instance.scene.name.StartsWith("Desert"))
+        {
+            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(238, 161, 96, 255);
+        }
+
+        instance.moneytext.SetText(instance.money.ToString());
+
+        if (instance.bulletAmount <= 13)
+        {
+                instance.BulletCounter.GetComponent<Image>().sprite = instance.bulletcounterarray[instance.bulletAmount];
         }
         else
         {
-            BulletCounter.GetComponent<Image>().sprite = bulletcounterarray[14];
+            instance.BulletCounter.GetComponent<Image>().sprite = instance.bulletcounterarray[14];
         }
 
 

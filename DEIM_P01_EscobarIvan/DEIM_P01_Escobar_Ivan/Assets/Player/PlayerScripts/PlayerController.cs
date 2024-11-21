@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider2D groundcol;
     [SerializeField] private Animator animatorvar;
     [SerializeField] private GameObject GameObjectToSpawn;
-    [SerializeField] private InventoryScript inventorymanagerref;
     [SerializeField] private float maxjumptime=0.9f;
     [SerializeField] public int speed = 5;
     [SerializeField] private int jumpspeed;
@@ -26,12 +25,15 @@ public class PlayerController : MonoBehaviour
     private float yvelocity = 0;
     private float xvelocity = 0;
     public int maxvel = 10;
+    public int defaultMaxvel = 10;
     private float extragravity = 0.5f;
     private bool jumping;
     private bool impulseapplied;
     public int damage = 1;
+    public int defaultDamage = 1;
     public bool hasBulletPenetration;
     public int amountOfBulletsToSpawn = 1;
+    public int defaultAmountOfBulletsToSpawn = 1;
     private UnityEngine.SceneManagement.Scene scene;
 
 
@@ -48,12 +50,16 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        hasBulletPenetration = InventoryScript.instance.bulletPenetrationBool;
     }
 
     // Update is called once per frame
     void Update()
     {
+        maxvel = defaultMaxvel + InventoryScript.instance.extraMaxVel;
+        amountOfBulletsToSpawn = defaultAmountOfBulletsToSpawn + InventoryScript.instance.extraBullets;
+        damage = defaultDamage + InventoryScript.instance.extraDamage;
+
         yvelocity = rigidbod.velocity.y;
         xvelocity = rigidbod.velocity.x;
         if (Input.GetKeyDown(KeyCode.R))
@@ -71,7 +77,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * speed * Time.fixedDeltaTime * 50);
+                rigidbod.AddForce(Vector2.right * (speed + InventoryScript.instance.extraSpeed) * Time.fixedDeltaTime * 50);
                 spriterender.flipX = false;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -87,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * speed * Time.fixedDeltaTime * 50);
+                rigidbod.AddForce(Vector2.left * (speed+InventoryScript.instance.extraSpeed) * Time.fixedDeltaTime * 50);
                 spriterender.flipX = true;
                 animatorvar.SetBool("IsRunning", true);
             }
@@ -115,15 +121,15 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    if (inventorymanagerref.bulletAmount >= 1)
+                    if (InventoryScript.instance.bulletAmount >= 1)
                     {
                         AudioManager.playBulletShot();
                         bulletParticle.Play();
-                        inventorymanagerref.bulletAmount = inventorymanagerref.bulletAmount - 1;
+                        InventoryScript.instance.bulletAmount = InventoryScript.instance.bulletAmount - 1;
                         //halve vertical velocity, add impulse up 
                         rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
 
-                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.fixedDeltaTime * inventorymanagerref.bulletAmount * 10);
+                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.fixedDeltaTime * InventoryScript.instance.bulletAmount * 10);
 
                         //spawn bullet
                         for (int i = 0; i < amountOfBulletsToSpawn; i++)
@@ -181,7 +187,7 @@ public class PlayerController : MonoBehaviour
         animatorvar.SetBool("IsGrounded", grounded);
         if (grounded == true)
         {
-            inventorymanagerref.bulletAmount = inventorymanagerref.maxBulletAmount;
+            InventoryScript.instance.bulletAmount = InventoryScript.instance.maxBulletAmount;
         }
 
     }

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class HealthManager : MonoBehaviour
@@ -11,16 +13,34 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private GameObject hearticon2;
     [SerializeField] private GameObject hearticon3;
     [SerializeField] private GameObject gameovercanvas;
-    float timer = 0;
+    [SerializeField] float timer = 0;
     float timeElapsed = 0;
-    bool damageable = true;
+    [SerializeField] bool damageable = true;
     float immunitytime = 1;
     public int health = 3;
     public int maxHealth = 3;
     bool flippingBool;
     float flippingTimer;
+    private Image[] images;
+    public static HealthManager instance;
+    private PlayerController pc;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
+        gameovercanvas = pc.transform.Find("gameovercanvas").gameObject;
 
         gameovercanvas.SetActive(false);
 
@@ -28,82 +48,124 @@ public class HealthManager : MonoBehaviour
     }
 
 
+    public void checkForIcons()
+    {
+        pc = FindAnyObjectByType<PlayerController>();
+
+        gameovercanvas = pc.transform.Find("gameovercanvas").gameObject;
+
+        images = FindObjectsOfType<Image>();
+
+        foreach (var item in images)
+        {
+            switch (item.gameObject.name)
+            {
+                case "hearticon1":
+                    hearticon1 = item.gameObject;
+                    break;
+                case "hearticon2":
+                    hearticon2 = item.gameObject;
+                    break;
+                case "hearticon3":
+                    hearticon3 = item.gameObject;
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        
+
+
+    }
+
+
     private void Update()
     {
-        if (health > maxHealth)
+        //reset health and max health
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenu")
         {
-            health = maxHealth;
+            health = 3;
+            maxHealth = 3;
+        }
+
+        if (instance.health > instance.maxHealth)
+        {
+            instance.health = instance.maxHealth;
         }
 
 
-        switch (health)
+        
+
+        switch (instance.health)
         {
 
             case 3:
-                hearticon1.GetComponent<Image>().sprite = heartarray[1];
-                hearticon2.GetComponent<Image>().sprite = heartarray[1];
-                hearticon3.GetComponent<Image>().sprite = heartarray[1];
+                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
+                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[1];
+                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[1];
                 break;
 
             case 2:
-                hearticon1.GetComponent<Image>().sprite = heartarray[1];
-                hearticon2.GetComponent<Image>().sprite = heartarray[1];
-                hearticon3.GetComponent<Image>().sprite = heartarray[0];
+                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
+                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[1];
+                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
                 break;
 
             case 1:
-                hearticon1.GetComponent<Image>().sprite = heartarray[1];
-                hearticon2.GetComponent<Image>().sprite = heartarray[0];
-                hearticon3.GetComponent<Image>().sprite = heartarray[0];
+                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
+                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[0];
+                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
                 break;
 
             case < 1:
-                hearticon1.GetComponent<Image>().sprite = heartarray[0];
-                hearticon2.GetComponent<Image>().sprite = heartarray[0];
-                hearticon3.GetComponent<Image>().sprite = heartarray[0];
-                gameovercanvas.SetActive(true);
-                GetComponentInParent<PlayerController>().inputallowed = false;
+                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[0];
+                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[0];
+                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
+                instance.gameovercanvas.SetActive(true);
+                instance.pc.inputallowed = false;
                 break;
 
 
 
         }
 
-        if (timer <= immunitytime)
+        if (instance.timer <= instance.immunitytime)
         {
-            timer = Time.time - timeElapsed;
+            instance.timer = Time.time - instance.timeElapsed;
 
         }
-        if (timer >= immunitytime)
+        if (instance.timer >= instance.immunitytime)
         {
-            damageable = true;
+            instance.damageable = true;
         }
 
-        if (!damageable)
+        if (!instance.damageable)
         {
-            gameObject.GetComponent<Animator>().SetBool("IsDamaged", true);
-            if (Time.time > flippingTimer)
+            instance.pc.gameObject.GetComponent<Animator>().SetBool("IsDamaged", true);
+            if (Time.time > instance.flippingTimer)
             {
-                flippingTimer = Time.time + 0.1f;
-                flippingBool = !flippingBool;
+                instance.flippingTimer = Time.time + 0.1f;
+                instance.flippingBool = !instance.flippingBool;
             }
 
-            if (flippingBool)
+            if (instance.flippingBool)
             {
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 50);
+                instance.pc.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 50);
 
             }
             else
             {
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 100);
+                instance.pc.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 100);
 
             }
 
         }
         else
         {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-            gameObject.GetComponent<Animator>().SetBool("IsDamaged", false);
+            instance.pc.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+            instance.pc.gameObject.GetComponent<Animator>().SetBool("IsDamaged", false);
 
         }
 

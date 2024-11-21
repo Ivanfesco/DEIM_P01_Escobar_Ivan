@@ -85,7 +85,7 @@ public class BlockEnemyScript : MonoBehaviour
         {
             if (collision.collider.name.StartsWith("Player"))
             {
-                collision.collider.GetComponent<HealthManager>().PlayerDamage(1);
+                HealthManager.instance.PlayerDamage(1);
             }
             print(collision.collider.name);
                 State = EnemyState.Returning;

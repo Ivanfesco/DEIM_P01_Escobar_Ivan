@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class ShotgunShellScript : MonoBehaviour
 {
-    private PlayerController pc;
-    // Start is called before the first frame update
-    private void Start()
-    {
-        pc = FindAnyObjectByType<PlayerController>();
-    }
 
     public void addShotgunShell()
     {
 
-        pc.amountOfBulletsToSpawn = pc.amountOfBulletsToSpawn + 1;
+        InventoryScript.instance.extraBullets = InventoryScript.instance.extraBullets + 1;
 
     }
 }
