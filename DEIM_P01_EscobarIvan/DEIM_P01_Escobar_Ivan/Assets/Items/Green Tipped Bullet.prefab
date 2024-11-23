@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -402212196002347078}
   - component: {fileID: -2876165612378445185}
   m_Layer: 0
-  m_Name: Green Tipped Bullets
+  m_Name: Green Tipped Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

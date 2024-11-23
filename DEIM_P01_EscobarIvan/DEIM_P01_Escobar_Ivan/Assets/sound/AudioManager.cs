@@ -30,7 +30,7 @@ public class AudioManager : MonoBehaviour
     {
         if (!instance.StepSource.isPlaying)
         {
-            instance.StepSource.pitch = Random.Range(0.95f, 1.05f);
+            instance.StepSource.pitch = Random.Range(0.85f, 1.15f);
             instance.StepSource.Play();
         }
     }

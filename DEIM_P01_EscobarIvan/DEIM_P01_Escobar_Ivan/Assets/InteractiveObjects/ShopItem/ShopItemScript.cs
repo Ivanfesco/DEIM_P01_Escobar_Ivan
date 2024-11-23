@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShopItemScript : MonoBehaviour
@@ -9,11 +11,23 @@ public class ShopItemScript : MonoBehaviour
     [SerializeField] GameObject spawneditem;
     private InventoryScript invscr;
     [SerializeField] private Sprite[] spritelist;
+
+    [SerializeField] private Canvas itemcanv;
+    [SerializeField] private TextMeshProUGUI itemnametext;
+    [SerializeField] private TextMeshProUGUI itemdesctext;
+    [SerializeField] private TextMeshProUGUI itempricetext;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        itemcanv.gameObject.SetActive(false);
         invscr = FindAnyObjectByType<InventoryScript>();
         spawneditem = Instantiate(itemList[Random.Range(0, itemList.Length)], gameObject.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, transform);
+        itemnametext.text = spawneditem.name.Substring(0, spawneditem.name.Length - 7);
+        itemdesctext.text = InventoryScript.instance.itemdescdictionary[spawneditem.name.Substring(0, spawneditem.name.Length-7)];
+        itempricetext.text = spawneditem.GetComponent<ItemManager>().itemPrice.ToString();
     }
 
 
@@ -45,6 +59,7 @@ public class ShopItemScript : MonoBehaviour
         {
 
             iscolliding = true;
+            itemcanv.gameObject.SetActive(true);
 
         }
     }
@@ -54,6 +69,7 @@ public class ShopItemScript : MonoBehaviour
         if(collision.name.StartsWith("Player"))
         {
             iscolliding = false;
+            itemcanv.gameObject.SetActive(false);
         }
     }
 }

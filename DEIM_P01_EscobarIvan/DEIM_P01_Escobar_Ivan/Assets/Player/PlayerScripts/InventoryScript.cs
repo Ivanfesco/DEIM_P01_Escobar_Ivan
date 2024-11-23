@@ -31,6 +31,9 @@ public class InventoryScript : MonoBehaviour
     public int extraSpeed;
     public int extraMaxVel;
 
+    public Dictionary<string, string> itemdescdictionary = new Dictionary<string, string>();
+
+
     private void Awake()
         {
             if (instance == null)
@@ -47,7 +50,14 @@ public class InventoryScript : MonoBehaviour
 
     private void Start()
     {
-        
+        itemdescdictionary.Add("Syringe", "Probably legal. +Max Speed!");
+        itemdescdictionary.Add("Sugar", "Sugar high! +Acceleration");
+        itemdescdictionary.Add("Shotgun Shell", "Contains pellets. +1 Bullet per shot");
+        itemdescdictionary.Add("Pill", "Nondescript medication. +1 Max health");
+        itemdescdictionary.Add("Green Tipped Bullet", "Don't be immature about this. Enemy bullet penetration");
+        itemdescdictionary.Add("Barbell", "Hit the gym! +damage");
+        itemdescdictionary.Add("Bandage", "Heal your wounds. +1 Health");
+        itemdescdictionary.Add("Ammo Box", "Stock up! +1 Ammo");
         CheckForIcons();
     }
 

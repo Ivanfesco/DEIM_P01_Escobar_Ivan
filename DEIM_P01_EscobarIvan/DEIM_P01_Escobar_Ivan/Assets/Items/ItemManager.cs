@@ -8,6 +8,9 @@ public class ItemManager : MonoBehaviour
     public string gameobjectname;
     PlayerController pc;
     ItemKeeper ik;
+
+
+
     // Start is called before the first frame update
     private void Start()
     {
