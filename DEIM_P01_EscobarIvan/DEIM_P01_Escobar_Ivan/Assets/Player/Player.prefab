@@ -699,17 +699,20 @@ MonoBehaviour:
   groundcol: {fileID: 338760968213367714}
   animatorvar: {fileID: 7865114941515661281}
   GameObjectToSpawn: {fileID: 4777781221135187401, guid: 1d7c7b501297c824789ee737bcf70a30, type: 3}
-  maxjumptime: 0.9
-  speed: 7
-  jumpspeed: 7
-  recoilspeed: 100
+  maxjumptime: 1.2
+  speed: 5
+  jumpspeed: 9
+  recoilspeed: 25
   footparticlesR: {fileID: 7042524844090794902}
   footparticlesL: {fileID: 5926491201416159345}
   bulletParticle: {fileID: 4246850716182866165}
   maxvel: 10
+  defaultMaxvel: 10
   damage: 1
+  defaultDamage: 1
   hasBulletPenetration: 0
   amountOfBulletsToSpawn: 1
+  defaultAmountOfBulletsToSpawn: 1
 --- !u!61 &338760968213367714
 BoxCollider2D:
   m_ObjectHideFlags: 0

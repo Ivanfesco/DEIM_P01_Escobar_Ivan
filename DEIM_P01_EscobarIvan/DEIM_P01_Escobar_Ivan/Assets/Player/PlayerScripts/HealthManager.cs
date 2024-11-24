@@ -40,6 +40,8 @@ public class HealthManager : MonoBehaviour
 
     void Start()
     {
+        checkForIcons();
+
         gameovercanvas = pc.transform.Find("gameovercanvas").gameObject;
 
         gameovercanvas.SetActive(false);

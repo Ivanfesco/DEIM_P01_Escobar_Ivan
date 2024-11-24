@@ -12,12 +12,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animatorvar;
     [SerializeField] private GameObject GameObjectToSpawn;
     [SerializeField] private float maxjumptime=0.9f;
-    [SerializeField] public int speed = 5;
+    [SerializeField] public int speed = 250;
     [SerializeField] private int jumpspeed;
-    [SerializeField] private int recoilspeed = 200;
+    [SerializeField] private int recoilspeed = 100;
     [SerializeField] private ParticleSystem footparticlesR;
     [SerializeField] private ParticleSystem footparticlesL;
     [SerializeField] private ParticleSystem bulletParticle;
+
+    bool inputright;
+    bool inputleft;
+    bool inputspace;
 
     private float jumpTime=0;
     private int colidingwith = 0;
@@ -25,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private float yvelocity = 0;
     private float xvelocity = 0;
     public int maxvel = 10;
-    public int defaultMaxvel = 10;
+    public int defaultMaxvel = 25;
     private float extragravity = 0.5f;
     private bool jumping;
     private bool impulseapplied;
@@ -53,7 +57,68 @@ public class PlayerController : MonoBehaviour
         hasBulletPenetration = InventoryScript.instance.bulletPenetrationBool;
     }
 
-    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        if (inputright)
+        {
+            rigidbod.AddForce(Vector2.right * (speed + InventoryScript.instance.extraSpeed) * 5);
+            spriterender.flipX = false;
+            animatorvar.SetBool("IsRunning", true);
+            inputright = false;
+        }
+
+        if(inputleft)
+        {
+            rigidbod.AddForce(Vector2.left * (speed + InventoryScript.instance.extraSpeed) * 5);
+            spriterender.flipX = true;
+            animatorvar.SetBool("IsRunning", true);
+            inputleft=false;
+        }
+
+        if(inputspace)
+        {
+            if (grounded == true)
+            {
+                AudioManager.playJumpSound();
+                footparticlesL.Play();
+                footparticlesR.Play();
+                impulseapplied = false;
+                rigidbod.velocity = (new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
+                jumping = true;
+                jumpTime = 0;
+                inputspace = false;
+            }
+            else
+            {
+                if (InventoryScript.instance.bulletAmount >= 1)
+                {
+                    AudioManager.playBulletShot();
+                    bulletParticle.Play();
+                    InventoryScript.instance.bulletAmount = InventoryScript.instance.bulletAmount - 1;
+                    //halve vertical velocity, add impulse up 
+                    rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
+
+                    rigidbod.AddForce(Vector2.up * recoilspeed * InventoryScript.instance.bulletAmount );
+
+                    //spawn bullet
+                    for (int i = 0; i < amountOfBulletsToSpawn; i++)
+                    {
+                        Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
+                    }
+                    inputspace = false;
+                }
+            }
+        }
+
+
+        //Extra gravity
+        if (yvelocity < 0)
+        {
+
+            rigidbod.AddForce(Vector2.down * extragravity);
+
+        }
+    }
     void Update()
     {
         maxvel = defaultMaxvel + InventoryScript.instance.extraMaxVel;
@@ -77,14 +142,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D))
             {
-                rigidbod.AddForce(Vector2.right * (speed + InventoryScript.instance.extraSpeed) * Time.fixedDeltaTime * 50);
-                spriterender.flipX = false;
-                animatorvar.SetBool("IsRunning", true);
+                inputright = true;
             }
             else if (Input.GetKeyUp(KeyCode.D))
             {
 
-                // paro en seco VV
                 rigidbod.velocity = new Vector2(2, yvelocity);
 
             }
@@ -93,13 +155,11 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                rigidbod.AddForce(Vector2.left * (speed+InventoryScript.instance.extraSpeed) * Time.fixedDeltaTime * 50);
-                spriterender.flipX = true;
-                animatorvar.SetBool("IsRunning", true);
+                inputleft = true;
             }
             else if (Input.GetKeyUp(KeyCode.A))
             {
-                //paro en seco VV
+                
                 rigidbod.velocity = new Vector2(-2, yvelocity);
 
             }
@@ -109,35 +169,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (grounded == true)
-                {
-                    AudioManager.playJumpSound();
-                    footparticlesL.Play();
-                    footparticlesR.Play();
-                    impulseapplied = false;
-                    rigidbod.velocity = (new Vector2(rigidbod.velocity.x, Vector2.up.y * jumpspeed));
-                    jumping = true;
-                    jumpTime = 0;
-                }
-                else
-                {
-                    if (InventoryScript.instance.bulletAmount >= 1)
-                    {
-                        AudioManager.playBulletShot();
-                        bulletParticle.Play();
-                        InventoryScript.instance.bulletAmount = InventoryScript.instance.bulletAmount - 1;
-                        //halve vertical velocity, add impulse up 
-                        rigidbod.velocity = new Vector2(rigidbod.velocity.x, rigidbod.velocity.y / 2);
-
-                        rigidbod.AddForce(Vector2.up * recoilspeed * Time.fixedDeltaTime * InventoryScript.instance.bulletAmount * 10);
-
-                        //spawn bullet
-                        for (int i = 0; i < amountOfBulletsToSpawn; i++)
-                        {
-                            Instantiate(GameObjectToSpawn, new Vector2(transform.position.x, transform.position.y - 1), transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(-5, 5))));
-                        }
-                    }
-                }
+                inputspace = true;
             }
             if (Input.GetKeyUp(KeyCode.Space) || (jumpTime >= maxjumptime))
             {
@@ -157,6 +189,8 @@ public class PlayerController : MonoBehaviour
                 jumpTime += Time.fixedDeltaTime;
             }
 
+
+
         }
         ////////////////////////////////////////////////////////////////////
 
@@ -170,13 +204,7 @@ public class PlayerController : MonoBehaviour
 
         animatorvar.SetBool("IsJumping", yvelocity>=0.01);
 
-        //Extra gravity
-        if (yvelocity <0)
-        {
 
-            rigidbod.AddForce(Vector2.down * extragravity);
-
-        }
         
         if (colidingwith <= 0)
         {
