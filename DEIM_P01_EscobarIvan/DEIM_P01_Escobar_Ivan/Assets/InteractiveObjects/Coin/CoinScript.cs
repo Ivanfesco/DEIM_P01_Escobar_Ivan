@@ -8,6 +8,8 @@ public class CoinScript : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private InventoryScript inventoryvar;
     private bool coingiven;
+    [SerializeField] ParticleSystem particlestospawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +26,10 @@ public class CoinScript : MonoBehaviour
             {
                 coingiven = true;
                 inventoryvar.money++;
-                Destroy(gameObject);
                 AudioManager.playObjectSound("coin");
+                Instantiate(particlestospawn, transform.position, transform.rotation);
+                Destroy(gameObject);
+
             }
 
         }

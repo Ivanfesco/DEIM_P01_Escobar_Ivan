@@ -178,6 +178,7 @@ public class HealthManager : MonoBehaviour
     {
         if (damageable)
         {
+            CameraScript.ScreenShake(0.2f, 0.2f);
             AudioManager.playDamage();
             damageable = false;
             health = health - damage;

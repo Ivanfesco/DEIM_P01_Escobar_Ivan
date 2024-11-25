@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public int amountOfBulletsToSpawn = 1;
     public int defaultAmountOfBulletsToSpawn = 1;
     private UnityEngine.SceneManagement.Scene scene;
-
+    bool groundedmethodfired;
 
     // Start is called before the first frame update
     private void Awake()
@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (InventoryScript.instance.bulletAmount >= 1)
                 {
+                    CameraScript.ScreenShake(0.05f, 0.03f);
                     AudioManager.playBulletShot();
                     bulletParticle.Play();
                     InventoryScript.instance.bulletAmount = InventoryScript.instance.bulletAmount - 1;
@@ -195,8 +196,23 @@ public class PlayerController : MonoBehaviour
         ////////////////////////////////////////////////////////////////////
 
 
+        if (grounded)
+        {
+            if (!groundedmethodfired)
+            {
+                groundedMethod();
+                groundedmethodfired = true;
+            }
+        }
 
+        if(!grounded)
+        {
+            if(groundedmethodfired)
+            {
+                groundedmethodfired = false;
+            }
 
+        }
 
 
         animatorvar.SetBool("IsRunning", Mathf.Abs(0 - rigidbod.velocity.x) >= 0.01);
@@ -232,6 +248,15 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void groundedMethod()
+    {
+        if (InventoryScript.instance.bulletAmount != InventoryScript.instance.maxBulletAmount)
+        {
+            AudioManager.playReload();
+            InventoryScript.instance.BulletCounter.GetComponent<Animator>().SetTrigger("BulletResetTrigger");
+        }
+    }
+
     //Check para saber si se está tocando el suelo
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -247,6 +272,7 @@ public class PlayerController : MonoBehaviour
                         rigidbod.velocity = new Vector2(rigidbod.velocity.x, 0);
                         rigidbod.AddForce(new Vector2(0, 250));
                         collision.GetComponent<DeathManager>().damage();
+                        CameraScript.ScreenShake(0.05f, 0.05f);
                     }
                 }
                 footparticlesL.Play();
@@ -297,4 +323,6 @@ public class PlayerController : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 
     }
+
+
 }

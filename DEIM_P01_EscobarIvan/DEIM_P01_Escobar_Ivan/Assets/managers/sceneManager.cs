@@ -66,6 +66,7 @@ namespace GestionEscenas
 
             InventoryScript.instance.CheckForIcons();
             HealthManager.instance.checkForIcons();
+            CameraScript.instance.findplayer();
 
             instance.transitionImage.GetComponent<Animator>().SetTrigger("FadeIn");
             

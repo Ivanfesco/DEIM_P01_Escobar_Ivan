@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 38d906dbcdc228c4eb126faa72efe01c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   spriterend: {fileID: 3741430926430726337}
   rbref: {fileID: 331129019766722084}
   helmet: {fileID: 8429232377526747666}
+  damage: 1
 --- !u!50 &331129019766722084
 Rigidbody2D:
   serializedVersion: 4
@@ -195,6 +196,7 @@ MonoBehaviour:
   stompable: 1
   pc: {fileID: 0}
   ishelmet: 0
+  particlestospawn: {fileID: 6293739845344396182, guid: 2af197b2eda6aa54f8f00bdd52ba79a2, type: 3}
 --- !u!95 &5278377869179493564
 Animator:
   serializedVersion: 5
@@ -293,7 +295,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: be8d6847c1ef2bc43bb3883d83b7c653, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -439,3 +441,4 @@ MonoBehaviour:
   stompable: 0
   pc: {fileID: 0}
   ishelmet: 1
+  particlestospawn: {fileID: 0}

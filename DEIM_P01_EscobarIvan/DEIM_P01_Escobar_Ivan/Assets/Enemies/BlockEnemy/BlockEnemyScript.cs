@@ -41,7 +41,10 @@ public class BlockEnemyScript : MonoBehaviour
                 {
                     if (playerRef.transform.position.y < gameObject.transform.position.y)
                     {
-                        State = EnemyState.Attack;
+                        if (Mathf.Abs(playerRef.transform.position.y - gameObject.transform.position.y) < 10)
+                        {
+                            State = EnemyState.Attack;
+                        }
                     }
                 }
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -61,7 +64,7 @@ public class BlockEnemyScript : MonoBehaviour
                 gameObject.GetComponent<Animator>().SetBool("Attacking", false);
                 if (gameObject.transform.position.y < startpos.y)
                 {
-                    rb.AddForce(new Vector2(0, 0.1f));
+                    rb.AddForce(new Vector2(0, 0.4f));
                 }
                 else
                 {
@@ -88,6 +91,8 @@ public class BlockEnemyScript : MonoBehaviour
                 HealthManager.instance.PlayerDamage(1);
             }
             print(collision.collider.name);
+                AudioManager.playEnemySound("blockhit");
+
                 State = EnemyState.Returning;
                 attacking = false;
 

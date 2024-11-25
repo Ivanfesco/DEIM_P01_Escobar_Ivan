@@ -194,6 +194,7 @@ MonoBehaviour:
   stompable: 0
   pc: {fileID: 0}
   ishelmet: 0
+  particlestospawn: {fileID: 6293739845344396182, guid: 2af197b2eda6aa54f8f00bdd52ba79a2, type: 3}
 --- !u!61 &8552184246160403861
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,6 +12,17 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource damageSource;
     [SerializeField] private AudioSource bulletShotSource;
     [SerializeField] private AudioSource jumpSource;
+
+    [SerializeField] private AudioSource EnemySource;
+    [SerializeField] private AudioClip EnemyBlockHit;
+    [SerializeField] private AudioClip EnemyDamage;
+
+    [SerializeField] private AudioSource IntObjSource;
+    [SerializeField] private AudioClip BlockBreak;
+    [SerializeField] private AudioClip Spring;
+
+    [SerializeField] private AudioSource reloadsource;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -67,6 +78,56 @@ public class AudioManager : MonoBehaviour
         }
 
         instance.objectsAudioSource.Play();
+    }
+
+    public static void playIntObjSound(string soundtoplay)
+    {
+        instance.IntObjSource.pitch = Random.Range(0.95f, 1.05f);
+        switch(soundtoplay)
+        {
+            case "block":
+                instance.IntObjSource.clip = instance.BlockBreak;
+                break;
+            case "spring":
+                instance.IntObjSource.clip = instance.Spring;
+                break;
+            default:
+                break;
+        }
+        instance.IntObjSource.Play();
+
+
+    }
+
+
+    public static void playReload()
+    {
+        
+            instance.reloadsource.pitch = Random.Range(0.95f, 1.05f);
+            instance.reloadsource.Play();
+       
+    }
+
+    public static void playEnemySound(string soundtoplay)
+    {
+        instance.EnemySource.pitch = Random.Range(0.95f, 1.05f);
+
+        switch(soundtoplay)
+        {
+
+            case "damage":
+                instance.EnemySource.clip = instance.EnemyDamage;
+                break;
+
+            case "blockhit":
+                instance.EnemySource.clip = instance.EnemyBlockHit;
+                break;
+            default:
+                break;
+
+        }
+        instance.EnemySource.Play();
+
     }
 
     public static void playJumpSound()

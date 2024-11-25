@@ -59,6 +59,7 @@ public class BulletScript : MonoBehaviour
         else
         {
             Instantiate(groundcolparticle, transform.position, transform.rotation);
+            AudioManager.playEnemySound("blockhit");
             Destroy(gameObject);
 
         }

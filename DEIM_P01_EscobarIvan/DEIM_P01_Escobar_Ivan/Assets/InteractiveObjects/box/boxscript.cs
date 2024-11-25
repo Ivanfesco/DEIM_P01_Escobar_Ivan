@@ -64,6 +64,7 @@ public class boxscript : MonoBehaviour
     void spawncoinsondeath()
     {
         Instantiate(particlestospawn, transform.position, transform.rotation);
+        AudioManager.playIntObjSound("block");
 
         if (Random.Range(0, 4) >= 3)
         {

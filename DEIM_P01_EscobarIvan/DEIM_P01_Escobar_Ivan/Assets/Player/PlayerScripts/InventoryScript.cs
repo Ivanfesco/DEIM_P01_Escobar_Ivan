@@ -15,7 +15,7 @@ public class InventoryScript : MonoBehaviour
 {
 
     [SerializeField] public TextMeshProUGUI moneytext;
-    [SerializeField] private GameObject BulletCounter;
+    [SerializeField] public GameObject BulletCounter;
     [SerializeField] private Sprite[] bulletcounterarray;
     public int money = 0;
     public static InventoryScript instance;

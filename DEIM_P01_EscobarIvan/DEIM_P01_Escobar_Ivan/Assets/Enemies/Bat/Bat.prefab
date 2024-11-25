@@ -130,6 +130,7 @@ MonoBehaviour:
   stompable: 1
   pc: {fileID: 0}
   ishelmet: 0
+  particlestospawn: {fileID: 6293739845344396182, guid: 2af197b2eda6aa54f8f00bdd52ba79a2, type: 3}
 --- !u!114 &7277283626047382380
 MonoBehaviour:
   m_ObjectHideFlags: 0

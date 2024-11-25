@@ -11,6 +11,7 @@ public class DeathManager : MonoBehaviour
     [SerializeField] public bool stompable = true;
     [SerializeField] PlayerController pc;
     [SerializeField] bool ishelmet;
+    [SerializeField] ParticleSystem particlestospawn;
     private void Start()
     {
         pc = FindAnyObjectByType<PlayerController>();
@@ -40,6 +41,9 @@ public class DeathManager : MonoBehaviour
 
 
                 }
+                Instantiate(particlestospawn, transform.position, transform.rotation);
+
+                AudioManager.playEnemySound("damage");
                 Destroy(gameObject);
             }
         }

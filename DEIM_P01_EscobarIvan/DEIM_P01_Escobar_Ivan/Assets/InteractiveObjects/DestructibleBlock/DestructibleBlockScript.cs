@@ -13,6 +13,7 @@ public class DestructibleBlockScript : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Instantiate(particlestospawn, transform.position, transform.rotation);
+            AudioManager.playIntObjSound("block");
             Destroy(gameObject);
            
             

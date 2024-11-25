@@ -21,7 +21,8 @@ public class SpringScript : MonoBehaviour
                 bounceable = false;
                 animator.Play("SpringBounce", -1, 0f);
                 collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, 0f);
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10) * Time.deltaTime * 50, ForceMode2D.Impulse);
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+                AudioManager.playIntObjSound("spring");
                 timer = 0;
                 timeElapsed = Time.time;
 

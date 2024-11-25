@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8503614310374455678}
+  particlestospawn: {fileID: 8583895003545948447, guid: e9569f51bf16b4e4aa348e3cea0e506f, type: 3}
 --- !u!58 &-4090571542344660619
 CircleCollider2D:
   m_ObjectHideFlags: 0
