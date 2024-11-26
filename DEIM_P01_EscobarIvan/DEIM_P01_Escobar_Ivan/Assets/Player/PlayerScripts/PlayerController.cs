@@ -122,10 +122,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 100, gameObject.transform.position.z);
-        }
+
         maxvel = defaultMaxvel + InventoryScript.instance.extraMaxVel;
         amountOfBulletsToSpawn = defaultAmountOfBulletsToSpawn + InventoryScript.instance.extraBullets;
         damage = defaultDamage + InventoryScript.instance.extraDamage;
