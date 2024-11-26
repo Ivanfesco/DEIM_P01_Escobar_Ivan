@@ -9,7 +9,7 @@ namespace GestionEscenas
     public class SceneManager : MonoBehaviour
     {
         public static SceneManager instance;
-
+        BGscript bgs;
         [SerializeField] private Image transitionImage;
         [SerializeField] public bool doneFadeOut;
         [SerializeField] public bool doneFadeIn;
@@ -47,8 +47,9 @@ namespace GestionEscenas
 
         private IEnumerator LoadSceneCoroutine(string sceneName)
         {
-            
-            
+            doneFadeIn = false;
+            doneFadeOut = false;
+
             instance.transitionImage.GetComponent<Animator>().SetTrigger("FadeOut");
 
 
@@ -64,13 +65,34 @@ namespace GestionEscenas
                 yield return null;
             }
 
-            InventoryScript.instance.CheckForIcons();
-            HealthManager.instance.checkForIcons();
-            CameraScript.instance.findplayer();
+            
 
             instance.transitionImage.GetComponent<Animator>().SetTrigger("FadeIn");
-            
-            while(!doneFadeIn)
+
+
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                if (InventoryScript.instance != null)
+                {
+                    InventoryScript.instance.CheckForIcons();
+                }
+                if (HealthManager.instance != null)
+                {
+                    HealthManager.instance.checkForIcons();
+                }
+                if (CameraScript.instance != null)
+                {
+                    CameraScript.instance.findplayer();
+                }
+            }
+
+            bgs = FindAnyObjectByType<BGscript>();
+            if(bgs != null)
+            {
+                bgs.setbg();
+            }
+            print("test");
+            while (!doneFadeIn)
             {
                 yield return null;
             }
@@ -80,5 +102,6 @@ namespace GestionEscenas
             yield break;
 
         }
+
     }
 }

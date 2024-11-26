@@ -67,6 +67,8 @@ public class InventoryScript : MonoBehaviour
         images = FindObjectsOfType<Image>();
         tmptexts = FindObjectsOfType<TextMeshProUGUI>();
 
+
+
         foreach (var item in images)
         {
             if (item.gameObject.name == "BulletCounter")
@@ -82,6 +84,19 @@ public class InventoryScript : MonoBehaviour
                 moneytext = item;
             }
 
+        }
+
+        if (instance.scene.name.StartsWith("Forest"))
+        {
+            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(45, 176, 130, 255);
+        }
+        else if (instance.scene.name.StartsWith("Tundra"))
+        {
+            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(44, 196, 246, 255);
+        }
+        else if (instance.scene.name.StartsWith("Desert"))
+        {
+            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(238, 161, 96, 255);
         }
 
 
@@ -100,34 +115,30 @@ public class InventoryScript : MonoBehaviour
             extraSpeed = 0;
             extraMaxVel = 0;
             extraSpeed = 0;
-            bulletPenetrationBool = false;  
-        }
-
-
-        if (instance.scene.name.StartsWith("Forest"))
-        {
-            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(45,176,130,255);
-        }
-        else if (instance.scene.name.StartsWith("Tundra"))
-        {
-            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(44, 196, 246, 255);
-        }
-        else if (instance.scene.name.StartsWith("Desert"))
-        {
-            instance.BulletCounter.gameObject.GetComponent<Image>().color = new Color32(238, 161, 96, 255);
-        }
-
-        instance.moneytext.SetText(instance.money.ToString());
-
-        if (instance.bulletAmount <= 13)
-        {
-                instance.BulletCounter.GetComponent<Image>().sprite = instance.bulletcounterarray[instance.bulletAmount];
+            bulletPenetrationBool = false;
         }
         else
         {
-            instance.BulletCounter.GetComponent<Image>().sprite = instance.bulletcounterarray[14];
-        }
 
+            instance.moneytext.SetText(instance.money.ToString());
+
+
+
+            if (instance.bulletAmount <= 13)
+            {
+                if (instance.BulletCounter != null)
+                {
+                    instance.BulletCounter.GetComponent<Image>().sprite = instance.bulletcounterarray[instance.bulletAmount];
+                }
+            }
+            else
+            {
+                if (instance.BulletCounter != null)
+                {
+                    instance.BulletCounter.GetComponent<Image>().sprite = instance.bulletcounterarray[14];
+                }
+            }
+        }
 
     }
 }

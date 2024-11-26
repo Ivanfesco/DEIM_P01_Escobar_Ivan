@@ -23,7 +23,6 @@ public class ShopItemScript : MonoBehaviour
     void Start()
     {
         itemcanv.gameObject.SetActive(false);
-        invscr = FindAnyObjectByType<InventoryScript>();
         spawneditem = Instantiate(itemList[Random.Range(0, itemList.Length)], gameObject.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, transform);
         itemnametext.text = spawneditem.name.Substring(0, spawneditem.name.Length - 7);
         itemdesctext.text = InventoryScript.instance.itemdescdictionary[spawneditem.name.Substring(0, spawneditem.name.Length-7)];
@@ -40,10 +39,10 @@ public class ShopItemScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
 
-                if (invscr.money >= spawneditem.GetComponent<ItemManager>().itemPrice)
+                if (InventoryScript.instance.money >= spawneditem.GetComponent<ItemManager>().itemPrice)
                 {
                     spawneditem.GetComponent<ItemManager>().addItem();
-                    invscr.money = invscr.money - spawneditem.GetComponent<ItemManager>().itemPrice;
+                    InventoryScript.instance.money = InventoryScript.instance.money - spawneditem.GetComponent<ItemManager>().itemPrice;
                     Destroy(spawneditem);
                     gameObject.GetComponent<SpriteRenderer>().sprite = spritelist[1];
                     AudioManager.playObjectSound("item");

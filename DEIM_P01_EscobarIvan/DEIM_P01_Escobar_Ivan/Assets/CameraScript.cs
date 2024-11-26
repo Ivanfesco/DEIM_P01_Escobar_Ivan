@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraScript : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class CameraScript : MonoBehaviour
     {
         player = FindAnyObjectByType<PlayerController>().gameObject;
 
+
     }
 
     private void Awake()
@@ -37,10 +39,21 @@ public class CameraScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if(FindAnyObjectByType<Camera>() != null && FindAnyObjectByType<Camera>().gameObject != gameObject)
+        {
+            Destroy(gameObject);
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            print("destroyattempt");
+            Destroy(gameObject);
+        }
+
         target = new Vector3(0, player.transform.position.y + player.GetComponent<Rigidbody2D>().velocity.y / 10, -2);
         if (Mathf.Abs(player.transform.position.x) < 50 )
         {
@@ -58,7 +71,7 @@ public class CameraScript : MonoBehaviour
             {
                 //do the shake
 
-                gameObject.transform.position = target + new Vector3(Random.Range(-amplitude, amplitude), Random.Range(-amplitude, amplitude), 0);
+                gameObject.transform.position = gameObject.transform.position + new Vector3(Random.Range(-amplitude, amplitude), Random.Range(-amplitude, amplitude), 0);
 
             }
             else
@@ -73,13 +86,14 @@ public class CameraScript : MonoBehaviour
 
     public static void ScreenShake(float duration, float Amplitude)
     {
+        if (instance != null)
+        {
+            instance.screenshakeduration = duration;
+            instance.shakeendtime = Time.time + duration;
+            instance.amplitude = Amplitude;
+            instance.shaking = true;
+        }
 
-        instance.screenshakeduration = duration;
-        instance.shakeendtime = Time.time + duration;
-        instance.amplitude = Amplitude;
-        instance.shaking = true;
     }
-
-
 
 }

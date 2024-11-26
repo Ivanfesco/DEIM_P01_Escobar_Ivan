@@ -99,37 +99,37 @@ public class HealthManager : MonoBehaviour
 
 
         
+        if( hearticon1 && hearticon2 && hearticon3 != null ) {
+            switch (instance.health)
+            {
 
-        switch (instance.health)
-        {
+                case 3:
+                    instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
+                    instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[1];
+                    instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[1];
+                    break;
 
-            case 3:
-                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
-                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[1];
-                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[1];
-                break;
+                case 2:
+                    instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
+                    instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[1];
+                    instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
+                    break;
 
-            case 2:
-                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
-                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[1];
-                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
-                break;
+                case 1:
+                    instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
+                    instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[0];
+                    instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
+                    break;
 
-            case 1:
-                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[1];
-                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[0];
-                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
-                break;
+                case < 1:
+                    instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[0];
+                    instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[0];
+                    instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
+                    instance.gameovercanvas.SetActive(true);
+                    instance.pc.inputallowed = false;
+                    break;
 
-            case < 1:
-                instance.hearticon1.GetComponent<Image>().sprite = instance.heartarray[0];
-                instance.hearticon2.GetComponent<Image>().sprite = instance.heartarray[0];
-                instance.hearticon3.GetComponent<Image>().sprite = instance.heartarray[0];
-                instance.gameovercanvas.SetActive(true);
-                instance.pc.inputallowed = false;
-                break;
-
-
+            }
 
         }
 
@@ -166,9 +166,11 @@ public class HealthManager : MonoBehaviour
         }
         else
         {
-            instance.pc.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-            instance.pc.gameObject.GetComponent<Animator>().SetBool("IsDamaged", false);
-
+            if (instance.pc != null)
+            {
+                instance.pc.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                instance.pc.gameObject.GetComponent<Animator>().SetBool("IsDamaged", false);
+            }
         }
 
     }

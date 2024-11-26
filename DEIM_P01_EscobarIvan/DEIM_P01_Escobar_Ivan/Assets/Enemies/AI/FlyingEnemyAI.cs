@@ -60,7 +60,7 @@ public class FlyingEnemyAI : MonoBehaviour
                         }
                         else
                         {
-                            aiAgent.destination = playerTrf.position-new Vector3(0, 1.5f, 0);
+                            aiAgent.destination = playerTrf.position-new Vector3(0, 0.5f, 0);
                         }
                         break;
 

@@ -1469,7 +1469,7 @@ GameObject:
   - component: {fileID: 1901103133}
   - component: {fileID: 1901103132}
   m_Layer: 0
-  m_Name: tilemap-backgrounds_packed_3
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1502,6 +1502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa41647f6b248a245b8116fe07f3bc2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgrounds:
+  - {fileID: -424520335, guid: 196754ea828b72b42b1a417cbb9dc7a3, type: 3}
+  - {fileID: -1563866330, guid: 196754ea828b72b42b1a417cbb9dc7a3, type: 3}
+  - {fileID: 241285313, guid: 196754ea828b72b42b1a417cbb9dc7a3, type: 3}
 --- !u!212 &1901103133
 SpriteRenderer:
   m_ObjectHideFlags: 0

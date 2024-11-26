@@ -160,7 +160,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.Ivan.BiomeDescent
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -286,7 +287,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 5815d3846237aaa4784b107cccea88c1, type: 3}
+      m_Icon: {fileID: 2800000, guid: 8f98cb2a1dd5b434e84f86c0bf1fabc6, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
